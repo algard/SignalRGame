@@ -66,7 +66,7 @@
                             $('.room').append('<li class="msg playerOne">' +
                                 '<img alt="">' +
                                 '<p>' +
-                                '<strong>' + name + ': </strong>' +
+                                '<strong>' + name.substring(0, 5) + ': </strong>' +
                                 '<span class="msgText">' + message + '</span>' +
                                 '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
@@ -75,7 +75,7 @@
                             $('.room').append('<li class="msg playerTwo">' +
                                '<img alt="">' +
                                '<p>' +
-                               '<strong>' + name + ': </strong>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
                                '<span class="msgText p2">' + message + '</span>' +
                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
@@ -88,7 +88,7 @@
                             $('.room').append('<li class="msg playerOne">' +
                                 '<img alt="">' +
                                 '<p>' +
-                                '<strong>' + name + ': </strong>' +
+                                '<strong>' + name.substring(0, 5) + ': </strong>' +
                                 '<span class="msgText">' + message + '</span>' +
                                 '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
@@ -97,7 +97,7 @@
                             $('.room').append('<li class="msg playerTwo">' +
                                '<img alt="">' +
                                '<p>' +
-                               '<strong>' + name + ': </strong>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
                                '<span class="msgText p2">' + message + '</span>' +
                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
