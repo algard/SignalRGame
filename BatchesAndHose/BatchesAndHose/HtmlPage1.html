@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
     <body>
-        
-        <div id="playerDetails">
+        <div id="playerDetails" class="content">
             <label for="displayname">Player Name:</label><input name="displayname" id="displayname" />
         </div>
     
-        <div class="canvas"></div>
+        <div id="canvasContainer" class="content">
+            <div class="canvas"></div>
+        </div>
 
         <div class="Chatcontainer">
             <input type="text" id="message" />
@@ -29,7 +30,7 @@
   				</ul>
   			</div>				
 		</div>
-
+            
 
         <!--Script references. -->
         <!--Reference the jQuery library. -->
@@ -167,12 +168,12 @@
                     $("body").keyup(function (event) {
                         // todo: use moveStartLocation and lastX(current x?) to figure out 
                         switch (event.keyCode) {
-                            case 37: 
-                                chat.server.move($('#displayname').val(), -25);
-                                break;
-                            case 39:
-                                chat.server.move($('#displayname').val(), 25);
-                                break;
+                        case 37: 
+                            chat.server.move($('#displayname').val(), -25);
+                            break;
+                        case 39:
+                            chat.server.move($('#displayname').val(), 25);
+                            break;
                         }
                     });
                     
