@@ -12,50 +12,44 @@
     
         <div class="canvas"></div>
 
-        <div class="Chatcontainer">
-            <input type="text" id="message" />
-            <input type="button" id="sendmessage" value="Send" />
-            <ul id="discussion">
-            </ul>
-        </div>
-        
+
         <div id="bottom">
 			<div id="theme" class="dark">
-				<ul class="room">
+			    <ul class="room">
 				    
-                <!--<li class="msg playerOne">
-  					<img alt="">
-  					<p>
-    					<strong>Jim sauce: </strong>
-						<span class="msg">hello world</span>
-   				 		<time>20:23</time>
-   				 	</p>
-  				</li>-->
+			        <!--<li class="msg playerOne">
+			                <img alt="">
+			                <p>
+			                    <strong>Jim sauce: </strong>
+			                    <span class="msg">hello world</span>
+			                    <time>20:23</time>
+			                </p>
+			            </li>-->
   
-  				<!--<li class="msg playerTwo">
-  					<img alt="">
-  					<p>
-    					<strong>Jimbob: </strong>
-						<span class="msg">blah blah blah blah blah blah blah</span>
-    					<time>20:25</time>
-    				</p>
-  				</li>-->
+			        <!--<li class="msg playerTwo">
+			                <img alt="">
+			                <p>
+			                    <strong>Jimbob: </strong>
+			                    <span class="msg">blah blah blah blah blah blah blah</span>
+			                    <time>20:25</time>
+			                </p>
+			            </li>-->
   
-  				<!--<li class="msg playerOne">
-  					<img alt="">
-  					<p>
-    					<strong>Jim sauce: </strong>
-						<span class="msg">hello world you are stupid</span>
-    					<time>20:23</time>
-    				</p>
-  				</li>-->
+			        <!--<li class="msg playerOne">
+			                <img alt="">
+			                <p>
+			                    <strong>Jim sauce: </strong>
+			                    <span class="msg">hello world you are stupid</span>
+			                    <time>20:23</time>
+			                </p>
+			            </li>-->
     
-  				<form>
-   	 				<input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
-    				<input id="message-send" name="message-send" type="button" value="Send"/>
- 				</form>
-  				</ul>
-  			</div>				
+			        <form>
+			            <input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
+			            <input id="message-send" name="message-send" type="button" value="Send"/>
+			        </form>   
+			    </ul>
+			</div>				
 		</div>
 
 
@@ -144,10 +138,22 @@
                     //     return;
                     // }
 
+                    var playerScoreBar = $('<div />', {
+                        id: 'ScoreBar' + newPlayerName,
+                        "class": 'progressbar-outer'
+                    });
+
+                    var score = $('<div />', {
+                        id: 'Score' + newPlayerName,
+                        "class": 'progressbar-inner'
+                    }).text(newPlayerName);
+
+                    playerScoreBar.append(score);
+
                     var playerDiv = $('<div />', {
                         id: 'player' + newPlayerName,
                         "class": 'player'
-                    });
+                    }).css('background-color', '#' + parseInt(x-100) + parseInt(y));
 
                     var name = $('<span />', {
                         "class": 'playerName'
@@ -158,6 +164,7 @@
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);
+                    $(".dark").append(playerScoreBar);
                 };
 
 

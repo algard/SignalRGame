@@ -10,6 +10,7 @@ public class ChatHub : Hub
     private const int CanvasHeight = 600;
     private const int CanvasWidth = 800;
     private const int PlayerHeight = 50;
+    private const int PlayerWidth = 50;
 
     private static List<Player> _players = new List<Player>();
 
@@ -34,8 +35,8 @@ public class ChatHub : Hub
      */
     public void AddNewPlayer(string name)
     {
-        var x = RandomLocation(0, CanvasWidth);
-        var y = CanvasHeight - PlayerHeight;
+        var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
+        var y = CanvasHeight;
 
         var newPlayer = new Player(name, x, y);
         _players.Add(newPlayer);
@@ -47,7 +48,7 @@ public class ChatHub : Hub
         }
 
         //notify other players that a new player has been added
-        Clients.All.addPlayer(name, x, y);
+        Clients.Others.addPlayer(name, x, y);
     }
 
     private static int RandomLocation(int startX, int endX)
