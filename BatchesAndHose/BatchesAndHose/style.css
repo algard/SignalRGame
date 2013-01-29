@@ -134,14 +134,14 @@ li {
             height: 38px;
             float: right;
             margin: .5em;
-            left: 272px;
+            left: 285px;
             top: 3px;
         }
 
         #theme.dark .msg.playerTwo time {
             position: absolute;
             top: -8px;
-            right: 23px;
+            right: 10px;
             padding: .1em .2em;
             background: #333;
             float: right;
@@ -166,7 +166,7 @@ li {
 
         #theme.dark .msg.playerOne strong {
             position: absolute;
-            left: 70px;
+            left: 65px;
             margin-right: 20px;
             color: #33d;
             font-size: 18px;
@@ -175,7 +175,7 @@ li {
 
         #theme.dark .msg.playerTwo strong {
             position: absolute;
-            left: 13px;
+            left: 8px;
             color: #d33;
             font-size: 18px;
             font-style: italic;
@@ -217,7 +217,7 @@ li {
 
 .msgText {
     position: relative;
-    left: 120px;
+    left: 130px;
     top: 2px;
     font-size: 16px;
 }
