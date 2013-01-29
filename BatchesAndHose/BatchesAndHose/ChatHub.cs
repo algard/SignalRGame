@@ -59,7 +59,7 @@ public class ChatHub : Hub
         _players.Add(newPlayer);
 
         //notify other players that a new player has been added
-        Clients.Others.addPlayer(name, x, y);
+        Clients.All.addPlayer(name, x, y);
     }
 
     private static int RandomLocation(int startX, int endX)

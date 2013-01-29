@@ -40,7 +40,7 @@
                 var lastSentX;
                 var lastX = 0;
                 var canvasWidth = 800;
-                var canvasHeight = 800;
+                var canvasHeight = 600;
                 var playerHeight = 50;
 
                 /*
@@ -130,14 +130,14 @@
                     var playerDiv = $('<div />', {
                         id: 'player' + newPlayerName,
                         "class": 'player'
-                    }).css('background-color', '#' + parseInt(x-100) + parseInt(y));
+                    }).css('background-color', '#' + parseInt(x) + parseInt(canvasHeight));
 
                     var name = $('<span />', {
                         "class": 'playerName'
                     }).text(newPlayerName);
 
                     playerDiv.append(name);
-                    playerDiv.css('top', (canvasHeight - playerHeight) + 'px');
+                    playerDiv.css('top', canvasHeight + 'px');
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);

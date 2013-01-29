@@ -211,7 +211,7 @@ li {
     font-size: 16px;
 }
 
-.p2 {
+
 .progressbar-outer {
   position: relative;
   background-color: white;
@@ -227,9 +227,9 @@ li {
    background-color: #1E90FF;
    width: 25%; 
    height: 20px;
-    text-align: center;
-    font-family: "Open Sans", arial;
-    font: bold;
+   text-align: center;
+   font-family: "Open Sans", arial;
+   font: bold;
 }
 
 .progressbar-outer:hover{
