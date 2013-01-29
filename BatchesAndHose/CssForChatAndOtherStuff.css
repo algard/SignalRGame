@@ -1,0 +1,137 @@
+* {
+	margin: 0;
+}
+
+#bottom {
+	background-color: black;
+	position: absolute;
+	bottom: 0;
+	height: 18em;
+	width: 100%;
+}
+
+#content {
+	margin-bottom: 5em;
+}
+
+#theme.dark{
+  font-family:Verdana, sans-serif;
+	color:#fff;
+  background:#000;
+}
+
+#theme.dark .room{
+  position:relative;
+  padding: .5em 1em 2.5em 1em;
+  max-width: 650px;
+  border: 3px solid #222;
+  height: 232px;
+}
+
+#theme.dark div.msg{
+  position:relative;
+  background:#333;
+  min-height:32px;
+  padding: .6em;
+  margin: 1em 0;
+}
+
+#theme.dark div.msg.odd{
+  background:#333;
+  border: 1px solid #33d;
+}
+
+#theme.dark div.msg.even{
+  background:#333;
+  border: 1px solid #d33;
+}
+
+#theme.dark div.msg.odd img{
+  background:#000;
+  border: 1px solid #33d;
+  width: 42px;
+  height: 42px;
+  float: left;
+  margin: .5em;
+}
+
+#theme.dark div.msg.even img{
+  background:#000;
+  border: 1px solid #d33;
+  width: 42px;
+  height: 42px;
+  float: right;
+  margin: .5em;
+}
+
+#theme.dark div.msg.even time{
+  position: absolute;
+  top: -8px;
+  right:22px;
+  padding:.1em .2em;
+  background: #333;
+  float: right;
+  color:#d33;
+  border: 1px solid #d33;
+  font-size:10px;
+  font-style: italic;
+}
+
+#theme.dark div.msg.odd time{
+  position: absolute;
+  top: -8px;
+  left:22px;
+  padding:.1em .2em;
+  background: #333;
+  float: left;
+  color:#33d;
+  border: 1px solid #33d;
+  font-size:10px;
+  font-style: italic;
+}
+
+#theme.dark div.msg.odd strong{
+  color:#33d;
+  font-size:18px;
+  font-style: italic;
+}
+
+#theme.dark div.msg.even strong{
+  color:#d33;
+  font-size:18px;
+  font-style: italic;
+}
+
+#theme.dark #message-box{
+  position:absolute;
+  z-index:999999;
+  background:#555;
+  color:#eee;
+  display: block;
+  left:0px;
+  bottom:0px;
+  border: 3px solid #333;
+  width:70%;
+	height:24px;
+	padding: .2em .7em;
+	font-size: 16px;
+}
+
+#theme.dark #message-send{
+  position:absolute;
+  z-index:999999;
+  background:#333;
+  display: block;
+  right:0px;
+  bottom:0px;
+  border: 3px solid #333;
+  width:24%;
+	height:36px;
+	font-size: 18px;
+  color:#eee;
+  text-transform:uppercase;
+}
+
+#theme.dark #message-send:hover,#message-send:active,#message-send:focus{
+  background:#222;
+}
