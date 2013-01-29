@@ -43,6 +43,11 @@
             $(function () {
                 // Declare a proxy to reference the hub. 
                 var chat = $.connection.chatHub;
+                var lastSentX;
+                var lastX = 0;
+                var canvasWidth = 800;
+                var canvasHeight = 800;
+                var playerHeight = 50;
 
                 /*
                  * broadcastMessage - recieve a message from another player
@@ -104,18 +109,17 @@
                 /*
                  * movePlayer - notify the client that a player has moved
                  */
-                chat.client.movePlayer = function (name, x, y) {
-                    $('#player' + name).css('top', y);
+                chat.client.movePlayer = function (name, x) {
                     $('#player' + name).css('left', x);
                 };
 
                 /*
                  * addPlayer - notify the client that a player has been added to the game
                  */
-                chat.client.addPlayer = function (newPlayerName, x, y) {
-                    // if (newPlayerName == $('#displayname').val()) {
-                    //     return;
-                    // }
+                chat.client.addPlayer = function (newPlayerName, x) {
+                    if (newPlayerName == $('#displayname').val()) {
+                        lastX = x;
+                    }
 
                     var playerDiv = $('<div />', {
                         id: 'player' + newPlayerName,
@@ -127,7 +131,7 @@
                     }).text(newPlayerName);
 
                     playerDiv.append(name);
-                    playerDiv.css('top', y + 'px');
+                    playerDiv.css('top', (canvasHeight - playerHeight) + 'px');
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);
@@ -155,6 +159,24 @@
                         // Clear text box and reset focus for next comment. 
                         $('#message-box').val('').focus();
                     });
+
+
+                    /*
+                     * stop moving
+                     */
+                    $("body").keyup(function (event) {
+                        // todo: use moveStartLocation and lastX(current x?) to figure out 
+                        switch (event.keyCode) {
+                            case 37: 
+                                chat.server.move($('#displayname').val(), -25);
+                                break;
+                            case 39:
+                                chat.server.move($('#displayname').val(), 25);
+                                break;
+                        }
+                    });
+                    
+
                 });
             });
         </script>
