@@ -16,35 +16,7 @@
         <div id="bottom">
 			<div id="theme" class="dark">
 			    <ul class="room">
-				    
-			        <!--<li class="msg playerOne">
-			                <img alt="">
-			                <p>
-			                    <strong>Jim sauce: </strong>
-			                    <span class="msg">hello world</span>
-			                    <time>20:23</time>
-			                </p>
-			            </li>-->
-  
-			        <!--<li class="msg playerTwo">
-			                <img alt="">
-			                <p>
-			                    <strong>Jimbob: </strong>
-			                    <span class="msg">blah blah blah blah blah blah blah</span>
-			                    <time>20:25</time>
-			                </p>
-			            </li>-->
-  
-			        <!--<li class="msg playerOne">
-			                <img alt="">
-			                <p>
-			                    <strong>Jim sauce: </strong>
-			                    <span class="msg">hello world you are stupid</span>
-			                    <time>20:23</time>
-			                </p>
-			            </li>-->
-    
-			        <form>
+  			        <form>
 			            <input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
 			            <input id="message-send" name="message-send" type="button" value="Send"/>
 			        </form>   
@@ -65,6 +37,11 @@
             $(function () {
                 // Declare a proxy to reference the hub. 
                 var chat = $.connection.chatHub;
+                var lastSentX;
+                var lastX = 0;
+                var canvasWidth = 800;
+                var canvasHeight = 800;
+                var playerHeight = 50;
 
                 /*
                  * broadcastMessage - recieve a message from another player
@@ -75,6 +52,7 @@
                     var encodedMsg = $('<span />').text(message).html();
                     var count = $('.room li').size();
                     var yourName = $('#displayname').val();
+                    var time = new Date();
                     // Add the message to the page.
                     
                     if (count < 3) {
@@ -82,18 +60,18 @@
                             $('.room').append('<li class="msg playerOne">' +
                                 '<img alt="">' +
                                 '<p>' +
-                                '<strong>' + name + ': </strong>' +
-                                '<span class="msgText">' + message + count + '</span>' +
-                                '<time>20:23</time>' +
+                                '<strong>' + name.substring(0, 5) + ': </strong>' +
+                                '<span class="msgText">' + message + '</span>' +
+                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
                             $('.room').append('<li class="msg playerTwo">' +
                                '<img alt="">' +
                                '<p>' +
-                               '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + count + '</span>' +
-                               '<time>20:23</time>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
+                               '<span class="msgText p2">' + message + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
                         }
@@ -104,18 +82,18 @@
                             $('.room').append('<li class="msg playerOne">' +
                                 '<img alt="">' +
                                 '<p>' +
-                                '<strong>' + name + ': </strong>' +
-                                '<span class="msgText">' + message + count + '</span>' +
-                                '<time>20:23</time>' +
+                                '<strong>' + name.substring(0, 5) + ': </strong>' +
+                                '<span class="msgText">' + message + '</span>' +
+                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
                             $('.room').append('<li class="msg playerTwo">' +
                                '<img alt="">' +
                                '<p>' +
-                               '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + count + '</span>' +
-                               '<time>20:23</time>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
+                               '<span class="msgText p2">' + message + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
                         }
@@ -125,18 +103,17 @@
                 /*
                  * movePlayer - notify the client that a player has moved
                  */
-                chat.client.movePlayer = function (name, x, y) {
-                    $('#player' + name).css('top', y);
-                    $('#player' + name).css('left', x);
+                chat.client.movePlayer = function (name, x) {
+			        $('#player' + name).css('left', x);
                 };
 
                 /*
                  * addPlayer - notify the client that a player has been added to the game
                  */
-                chat.client.addPlayer = function (newPlayerName, x, y) {
-                    // if (newPlayerName == $('#displayname').val()) {
-                    //     return;
-                    // }
+                chat.client.addPlayer = function (newPlayerName, x) {
+                    if (newPlayerName == $('#displayname').val()) {
+                        lastX = x;
+                    }
 
                     var playerScoreBar = $('<div />', {
                         id: 'ScoreBar' + newPlayerName,
@@ -160,7 +137,7 @@
                     }).text(newPlayerName);
 
                     playerDiv.append(name);
-                    playerDiv.css('top', y + 'px');
+                    playerDiv.css('top', (canvasHeight - playerHeight) + 'px');
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);
@@ -179,6 +156,8 @@
                 // Start the connection.
                 $.connection.hub.start().done(function () {
                     chat.server.addNewPlayer($('#displayname').val());
+           
+                    
                     $('#message-send').click(function () {
                         // Call the Send method on the hub. 
                         chat.server.send($('#displayname').val(), $('#message-box').val());
@@ -187,6 +166,24 @@
                         // Clear text box and reset focus for next comment. 
                         $('#message-box').val('').focus();
                     });
+
+
+                    /*
+                     * stop moving
+                     */
+                    $("body").keyup(function (event) {
+                        // todo: use moveStartLocation and lastX(current x?) to figure out 
+                        switch (event.keyCode) {
+                            case 37: 
+                                chat.server.move($('#displayname').val(), -25);
+                                break;
+                            case 39:
+                                chat.server.move($('#displayname').val(), 25);
+                                break;
+                        }
+                    });
+                    
+
                 });
             });
         </script>

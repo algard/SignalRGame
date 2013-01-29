@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using BatchesAndHose.Models;
 using Microsoft.AspNet.SignalR;
@@ -25,9 +26,19 @@ public class ChatHub : Hub
     /*
      * Move a player 
      */
-    public void Move(string name, int deltax, int deltay)
+    public void Move(string name, int deltax)
     {
-        Clients.All.movePlayer(name, deltax, deltay);
+        var player = GetPlayerByName(name);
+        if (player.CanMove(deltax))
+        {
+            player.LocationX += deltax;
+            Clients.All.movePlayer(name, player.LocationX);
+        }
+    }
+
+    private Player GetPlayerByName(string name)
+    {
+        return _players.FirstOrDefault(player => player.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     }
 
     /*
@@ -38,14 +49,14 @@ public class ChatHub : Hub
         var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
         var y = CanvasHeight;
 
-        var newPlayer = new Player(name, x, y);
-        _players.Add(newPlayer);
+        var newPlayer = new Player(name, x, CanvasWidth);
 
         // send the list of players to this new player
         foreach (var player in _players)
         {
-            Clients.Caller.addPlayer(player.Name, player.LocationX, player.LocationY);
+            Clients.Caller.addPlayer(player.Name, player.LocationX);
         }
+        _players.Add(newPlayer);
 
         //notify other players that a new player has been added
         Clients.Others.addPlayer(name, x, y);
