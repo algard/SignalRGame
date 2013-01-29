@@ -1,59 +1,9 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <title>SignalR Simple Chat</title>
-        <style type="text/css">
-            body {
-                background-color: #666;
-            }
-
-            .Chatcontainer {
-                background-color: #9CF;
-                border: thick solid #888;
-                padding: 20px;
-                width: 20%;
-                float: right;
-            }
-
-            .canvas {
-                width: 800px;
-                height: 800px;
-                padding: 20px;
-                border: 5px solid #000;
-                display: inline-block;
-            }
-
-            .player {
-                width: 75px;
-                height: 75px;
-                position: absolute;
-                overflow: hidden;
-                padding-top: 10px;
-                background-color: #060;
-            }
-        
-            #playerDetails {
-                display: block;
-                padding: 5px;
-            }
-
-            .playerName {
-                border: 1px solid #000000;
-                margin-left: 10px;
-            }
-
-            #displayname {
-                border: 1px solid #000;
-                background-color: #666;
-                border: 1px solid #000;
-            }
-
-            ul {
-                list-style: none;
-            }
-        </style>
-    </head>
+<head>
+    <title>SignalR Simple Chat</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
     <body>
         
         <div id="playerDetails">
@@ -68,6 +18,45 @@
             <ul id="discussion">
             </ul>
         </div>
+        
+        <div id="bottom">
+			<div id="theme" class="dark">
+				<ul class="room">
+				    
+                <!--<li class="msg playerOne">
+  					<img alt="">
+  					<p>
+    					<strong>Jim sauce: </strong>
+						<span class="msg">hello world</span>
+   				 		<time>20:23</time>
+   				 	</p>
+  				</li>-->
+  
+  				<!--<li class="msg playerTwo">
+  					<img alt="">
+  					<p>
+    					<strong>Jimbob: </strong>
+						<span class="msg">blah blah blah blah blah blah blah</span>
+    					<time>20:25</time>
+    				</p>
+  				</li>-->
+  
+  				<!--<li class="msg playerOne">
+  					<img alt="">
+  					<p>
+    					<strong>Jim sauce: </strong>
+						<span class="msg">hello world you are stupid</span>
+    					<time>20:23</time>
+    				</p>
+  				</li>-->
+    
+  				<form>
+   	 				<input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
+    				<input id="message-send" name="message-send" type="button" value="Send"/>
+ 				</form>
+  				</ul>
+  			</div>				
+		</div>
 
 
         <!--Script references. -->
@@ -88,11 +77,55 @@
                  */
                 chat.client.broadcastMessage = function (name, message) {
                     // Html encode display name and message. 
-                    var encodedName = $('<div />').text(name).html();
-                    var encodedMsg = $('<div />').text(message).html();
-                    // Add the message to the page. 
-                    $('#discussion').append('<li><strong>' + encodedName
-                        + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+                    var encodedName = $('<strong />').text(name + ":").html();
+                    var encodedMsg = $('<span />').text(message).html();
+                    var count = $('.room li').size();
+                    var yourName = $('#displayname').val();
+                    // Add the message to the page.
+                    
+                    if (count < 3) {
+                        if (name === yourName) {
+                            $('.room').append('<li class="msg playerOne">' +
+                                '<img alt="">' +
+                                '<p>' +
+                                '<strong>' + name + ': </strong>' +
+                                '<span class="msgText">' + message + count + '</span>' +
+                                '<time>20:23</time>' +
+                                '</p>' +
+                                '</li>');
+                        } else {
+                            $('.room').append('<li class="msg playerTwo">' +
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name + ': </strong>' +
+                               '<span class="msgText">' + message + count + '</span>' +
+                               '<time>20:23</time>' +
+                               '</p>' +
+                               '</li>');
+                        }
+                        
+                    } else {
+                        $('.room li:first').remove();
+                        if (name === yourName) {
+                            $('.room').append('<li class="msg playerOne">' +
+                                '<img alt="">' +
+                                '<p>' +
+                                '<strong>' + name + ': </strong>' +
+                                '<span class="msgText">' + message + count + '</span>' +
+                                '<time>20:23</time>' +
+                                '</p>' +
+                                '</li>');
+                        } else {
+                            $('.room').append('<li class="msg playerTwo">' +
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name + ': </strong>' +
+                               '<span class="msgText">' + message + count + '</span>' +
+                               '<time>20:23</time>' +
+                               '</p>' +
+                               '</li>');
+                        }
+                    }
                 };
 
                 /*
@@ -135,17 +168,17 @@
                 var playerName = prompt('Enter your name:', '');
                 $('#displayname').val(playerName);
                 // Set initial focus to message input box.  
-                $('#message').focus();
+                $('#message-box').focus();
                 // Start the connection.
                 $.connection.hub.start().done(function () {
                     chat.server.addNewPlayer($('#displayname').val());
-                    $('#sendmessage').click(function () {
+                    $('#message-send').click(function () {
                         // Call the Send method on the hub. 
-                        chat.server.send($('#displayname').val(), $('#message').val());
+                        chat.server.send($('#displayname').val(), $('#message-box').val());
 
 
                         // Clear text box and reset focus for next comment. 
-                        $('#message').val('').focus();
+                        $('#message-box').val('').focus();
                     });
                 });
             });

@@ -7,7 +7,7 @@ using Microsoft.AspNet.SignalR;
 
 public class ChatHub : Hub
 {
-    private const int CanvasHeight = 800;
+    private const int CanvasHeight = 600;
     private const int CanvasWidth = 800;
     private const int PlayerHeight = 50;
 
