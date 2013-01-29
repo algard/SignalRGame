@@ -1,8 +1,13 @@
-
 body {
     background-color: #666;
     padding: 10px;
     background-color: #fafafa;
+}
+
+#header {
+    font-family: 'Trade Winds', cursive;
+    text-align: center;
+    font-size: 3.5em;
 }
 
 .content {
@@ -14,12 +19,17 @@ body {
 }
 
 .canvas {
-    width: 800px;
+    width: 1024px;
     height: 600px;
     margin-left: auto;
     margin-right: auto;
     border: 5px solid #000;
     display: inline-block;
+}
+
+#canvas {
+	border: 1px solid #000;
+	cursor: crosshair;
 }
 
 .player {
