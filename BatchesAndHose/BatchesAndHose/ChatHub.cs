@@ -9,8 +9,9 @@ public class ChatHub : Hub
 {
     private const int CanvasHeight = 800;
     private const int CanvasWidth = 800;
+    private const int PlayerHeight = 50;
 
-    private List<Player> _players = new List<Player>();
+    private static List<Player> _players = new List<Player>();
 
     /*
      * Send a chat message to all clients
@@ -33,8 +34,8 @@ public class ChatHub : Hub
      */
     public void AddNewPlayer(string name)
     {
-        var x = 500;  //TODO pick a random location within the canvas
-        var y = 50;
+        var x = RandomLocation(0, CanvasWidth);
+        var y = CanvasHeight - PlayerHeight;
 
         var newPlayer = new Player(name, x, y);
         _players.Add(newPlayer);
@@ -46,7 +47,13 @@ public class ChatHub : Hub
         }
 
         //notify other players that a new player has been added
-        Clients.AllExcept(Clients.Caller).addPlayer(name, x, y);
+        Clients.All.addPlayer(name, x, y);
+    }
+
+    private static int RandomLocation(int startX, int endX)
+    {
+        var rnd = new Random();
+        return rnd.Next(startX, endX + 1);
     }
 
     public void RenamePlayer(string oldName, string newName)
