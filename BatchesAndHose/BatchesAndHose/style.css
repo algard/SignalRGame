@@ -1,0 +1,50 @@
+
+body {
+    background-color: #666;
+}
+
+.Chatcontainer {
+    background-color: #9CF;
+    border: thick solid #888;
+    padding: 20px;
+    width: 20%;
+    float: right;
+}
+
+.canvas {
+    width: 800px;
+    height: 800px;
+    padding: 20px;
+    border: 5px solid #000;
+    display: inline-block;
+}
+
+.player {
+                width: 75px;
+                height: 75px;
+                position: absolute;
+                overflow: hidden;
+                padding-top: 10px;
+                background-color: #060;
+                text-align: center;
+}
+
+#playerDetails {
+    display: block;
+    padding: 5px;
+}
+
+.playerName {
+    border: 1px solid #000000;
+    margin-left: 10px;
+}
+
+#displayname {
+    border: 1px solid #000;
+    background-color: #666;
+    border: 1px solid #000;
+}
+
+ul {
+    list-style: none;
+}

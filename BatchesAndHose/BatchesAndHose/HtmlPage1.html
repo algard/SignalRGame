@@ -1,60 +1,59 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <title>SignalR Simple Chat</title>
-    <style type="text/css">
-        body {
-            background-color: #666;
-        }
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>SignalR Simple Chat</title>
+        <style type="text/css">
+            body {
+                background-color: #666;
+            }
 
-        .Chatcontainer {
-            background-color: #9CF;
-            border: thick solid #888;
-            padding: 20px;
-            width: 20%;
-            float: right;
-        }
+            .Chatcontainer {
+                background-color: #9CF;
+                border: thick solid #888;
+                padding: 20px;
+                width: 20%;
+                float: right;
+            }
 
-        .canvas {
-            width: 800px;
-            height: 800px;
-            padding: 20px;
-            border: 5px solid #000;
-            display: inline-block;
-        }
+            .canvas {
+                width: 800px;
+                height: 800px;
+                padding: 20px;
+                border: 5px solid #000;
+                display: inline-block;
+            }
 
-        .player {
-            width: 75px;
-            height: 75px;
-            position: absolute;
-            top: 50px;
-            left: 500px;
-            border: 2px solid #000;
-            background-color: #060;
-            border-radius: 10px;
-        }
+            .player {
+                width: 75px;
+                height: 75px;
+                position: absolute;
+                overflow: hidden;
+                padding-top: 10px;
+                background-color: #060;
+            }
         
-        #playerDetails {
-            display: block;
-            padding: 5px;
-        }
+            #playerDetails {
+                display: block;
+                padding: 5px;
+            }
 
-        .playerName {
-            border: 1px solid #000000;
-            margin-left: 10px;
-        }
+            .playerName {
+                border: 1px solid #000000;
+                margin-left: 10px;
+            }
 
-        #displayname {
-            border: 1px solid #000;
-            background-color: #666;
-            border: 1px solid #000;
-        }
+            #displayname {
+                border: 1px solid #000;
+                background-color: #666;
+                border: 1px solid #000;
+            }
 
-        ul {
-            list-style: none;
-        }
-    </style>
-</head>
+            ul {
+                list-style: none;
+            }
+        </style>
+    </head>
     <body>
         
         <div id="playerDetails">
