@@ -48,7 +48,7 @@
                 var lastSentX;
                 var lastX = 0;
                 var canvasWidth = 800;
-                var canvasHeight = 800;
+                var canvasHeight = 600;
                 var playerHeight = 50;
 
                 /*
@@ -69,19 +69,19 @@
                                 '<img alt="">' +
                                 '<p>' +
                                 '<strong>' + name.substring(0, 5) + ': </strong>' +
-                                '<span class="msgText">' + message.substring(0, 20) + '</span>' +
+                                '<span class="msgText">' + message.substring(0, 21) + '</span>' +
                                 '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
                             $('.room').append('<li class="msg playerTwo">' +
-                                '<img alt="">' +
-                                '<p>' +
-                                '<strong>' + name.substring(0, 5) + ': </strong>' +
-                                '<span class="msgText p2">' + message.substring(0, 20) + '</span>' +
-                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                                '</p>' +
-                                '</li>');
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
+                               '<span class="msgText p2">' + message.substring(0, 21) + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
+                               '</p>' +
+                               '</li>');
                         }
                         
                     } else {
@@ -91,19 +91,19 @@
                                 '<img alt="">' +
                                 '<p>' +
                                 '<strong>' + name.substring(0, 5) + ': </strong>' +
-                                '<span class="msgText">' + message.substring(0, 20) + '</span>' +
+                                '<span class="msgText">' + message.substring(0, 21) + '</span>' +
                                 '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
                             $('.room').append('<li class="msg playerTwo">' +
-                                '<img alt="">' +
-                                '<p>' +
-                                '<strong>' + name.substring(0, 5) + ': </strong>' +
-                                '<span class="msgText p2">' + message.substring(0, 20) + '</span>' +
-                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                                '</p>' +
-                                '</li>');
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name.substring(0, 5) + ': </strong>' +
+                               '<span class="msgText p2">' + message.substring(0, 21) + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
+                               '</p>' +
+                               '</li>');
                         }
                     }
                 };
@@ -112,7 +112,7 @@
                  * movePlayer - notify the client that a player has moved
                  */
                 chat.client.movePlayer = function (name, x) {
-                    $('#player' + name).css('left', x);
+			        $('#player' + name).css('left', x);
                 };
 
                 /*
@@ -123,20 +123,33 @@
                         lastX = x;
                     }
 
+                    var playerScoreBar = $('<div />', {
+                        id: 'ScoreBar' + newPlayerName,
+                        "class": 'progressbar-outer'
+                    });
+
+                    var score = $('<div />', {
+                        id: 'Score' + newPlayerName,
+                        "class": 'progressbar-inner'
+                    }).text(newPlayerName);
+
+                    playerScoreBar.append(score);
+
                     var playerDiv = $('<div />', {
                         id: 'player' + newPlayerName,
                         "class": 'player'
-                    });
+                    }).css('background-color', '#' + parseInt(x) + parseInt(canvasHeight));
 
                     var name = $('<span />', {
                         "class": 'playerName'
                     }).text(newPlayerName);
 
                     playerDiv.append(name);
-                    playerDiv.css('top', (canvasHeight - playerHeight) + 'px');
+                    playerDiv.css('top', canvasHeight + 'px');
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);
+                    $(".dark").append(playerScoreBar);
                 };
 
 

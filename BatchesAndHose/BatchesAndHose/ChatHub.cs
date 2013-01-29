@@ -11,6 +11,7 @@ public class ChatHub : Hub
     private const int CanvasHeight = 600;
     private const int CanvasWidth = 800;
     private const int PlayerHeight = 50;
+    private const int PlayerWidth = 50;
 
     private static List<Player> _players = new List<Player>();
 
@@ -45,8 +46,8 @@ public class ChatHub : Hub
      */
     public void AddNewPlayer(string name)
     {
-        var x = RandomLocation(0, CanvasWidth);
-        var y = CanvasHeight - PlayerHeight;
+        var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
+        var y = CanvasHeight;
 
         var newPlayer = new Player(name, x, CanvasWidth);
 
