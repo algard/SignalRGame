@@ -11,13 +11,23 @@ namespace BatchesAndHose.Models
 
         public int LocationX;
 
-        public int LocationY;
+        public int CanvasWidth;
 
-        public Player(string name, int x, int y)
+        public Player(string name, int x, int canvasWidth)
         {
             this.Name = name;
             this.LocationX = x;
-            this.LocationY = y;
+            this.CanvasWidth = canvasWidth;
+        }
+
+        public bool CanMove(int deltax)
+        {
+            if (LocationX + deltax < 0 || LocationX + deltax > CanvasWidth)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
