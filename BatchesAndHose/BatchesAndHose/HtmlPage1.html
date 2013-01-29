@@ -71,7 +71,7 @@
                                '<img alt="">' +
                                '<p>' +
                                '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + '</span>' +
+                               '<span class="msgText p2">' + message + '</span>' +
                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
@@ -93,7 +93,7 @@
                                '<img alt="">' +
                                '<p>' +
                                '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + '</span>' +
+                               '<span class="msgText p2">' + message + '</span>' +
                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
@@ -145,6 +145,8 @@
                 // Start the connection.
                 $.connection.hub.start().done(function () {
                     chat.server.addNewPlayer($('#displayname').val());
+           
+                    
                     $('#message-send').click(function () {
                         // Call the Send method on the hub. 
                         chat.server.send($('#displayname').val(), $('#message-box').val());

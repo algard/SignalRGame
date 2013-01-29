@@ -78,7 +78,7 @@ li {
 
     #theme.dark .room {
         position: relative;
-        padding: 0em 1em 1em 1em;
+        padding: 0 1em 1em 1em;
         max-width: 650px;
         border: 3px solid #222;
         height: 217px;
@@ -87,9 +87,9 @@ li {
     #theme.dark .msg {
         position: relative;
         background: #333;
-        min-height: 28px;
+        min-height: 22px;
         padding: .4em;
-        margin: 1em 0;
+        margin: 1em 0 1.5em 0;
     }
 
         #theme.dark .msg.playerOne {
@@ -106,27 +106,29 @@ li {
             position: absolute;
             background: #000;
             border: 1px solid #33d;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             float: left;
             margin: .5em;
+            top: 3px;
         }
 
         #theme.dark .msg.playerTwo img {
             position: absolute;
             background: #000;
             border: 1px solid #d33;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             float: right;
             margin: .5em;
-            left: 578px;
+            left: 572px;
+            top: 3px;
         }
 
         #theme.dark .msg.playerTwo time {
             position: absolute;
             top: -8px;
-            right: 22px;
+            right: 23px;
             padding: .1em .2em;
             background: #333;
             float: right;
@@ -139,7 +141,7 @@ li {
         #theme.dark .msg.playerOne time {
             position: absolute;
             top: -8px;
-            left: 10px;
+            left: 8px;
             padding: .1em .2em;
             background: #333;
             float: left;
@@ -160,7 +162,7 @@ li {
 
         #theme.dark .msg.playerTwo strong {
             position: absolute;
-            left: 70px;
+            left: 13px;
             color: #d33;
             font-size: 18px;
             font-style: italic;
@@ -204,4 +206,9 @@ li {
     position: relative;
     left: 130px;
     top: 2px;
+    font-size: 16px;
+}
+
+.p2 {
+    left: 70px;
 }
