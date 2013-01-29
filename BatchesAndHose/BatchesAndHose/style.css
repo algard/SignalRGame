@@ -1,8 +1,8 @@
 
 body {
-    background-color: #666;
-    padding: 10px;
     background-color: #fafafa;
+    font-family: "Open Sans", arial;
+    color: white;
 }
 
 .content {
@@ -20,17 +20,17 @@ body {
     margin-right: auto;
     border: 5px solid #000;
     display: inline-block;
+    background-color: #B0E0E6;
 }
 
 .player {
     width: 75px;
     height: 75px;
     position: absolute;
-    top: 50px;
-    left: 500px;
-    border: 2px solid #000;
-    background-color: #060;
-    border-radius: 10px;
+    text-align: center;
+    background-color: #0008ff;
+    color: white;
+    font-family: "Open Sans", arial;
 }
 
 #playerDetails {
@@ -38,8 +38,7 @@ body {
 }
 
 .playerName {
-    border: 1px solid #000000;
-    margin-left: 10px;
+    margin-top: 10px;
 }
 
 #displayname {
@@ -51,8 +50,8 @@ body {
 
 #newGame {
     border-radius: 5px;
-    background-color: #fafafa;
-    border: 1px solid #666;
+    background-color: #666;
+    border: 1px solid #000;
     font-size: 1.2em;
     font-weight: bold;
     float: right;
@@ -75,7 +74,7 @@ li {
 }
 
 #bottom {
-    background-color: black;
+    background-color: #0f6d39;
     height: 15em;
 }
 
@@ -91,11 +90,14 @@ li {
 
     #theme.dark .room {
         position: relative;
+        float: left;
         padding: 0 1em 1em 1em;
-        max-width: 350px;
+        max-width: 650px;
+        width: 650px;
         border: 3px solid #222;
         height: 217px;
     }
+
 
     #theme.dark .msg {
         position: relative;
@@ -222,6 +224,27 @@ li {
     font-size: 16px;
 }
 
-.p2 {
-    left: 70px;
+
+.progressbar-outer {
+  position: relative;
+  background-color: white;
+  width: 25%;
+    float: right;
+    margin-bottom: 1px;
+    margin-top: 2px;
+    margin-right: 30px;
+
+}
+
+.progressbar-inner {
+   background-color: #1E90FF;
+   width: 25%; 
+   height: 20px;
+   text-align: center;
+   font-family: "Open Sans", arial;
+   font: bold;
+}
+
+.progressbar-outer:hover{
+	-webkit-transform: scale(1.03);
 }

@@ -12,17 +12,17 @@
     <hr/>
         <div id="canvasContainer" class="content">
             <div class="canvas"></div>
-        </div>
+
     <hr/>
         <div id="bottom" class="content">
 			<div id="theme" class="dark">
-				<ul class="room">
-  				<form>
-   	 				<input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
-    				<input id="message-send" name="message-send" type="button" value="Send"/>
- 				</form>
-  				</ul>
-  			</div>				
+			    <ul class="room">
+  			        <form>
+			            <input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
+			            <input id="message-send" name="message-send" type="button" value="Send"/>
+			        </form>   
+			    </ul>
+			</div>				
 		</div>
             
 
@@ -41,7 +41,7 @@
                 var lastSentX;
                 var lastX = 0;
                 var canvasWidth = 800;
-                var canvasHeight = 800;
+                var canvasHeight = 600;
                 var playerHeight = 50;
 
                 /*
@@ -105,7 +105,7 @@
                  * movePlayer - notify the client that a player has moved
                  */
                 chat.client.movePlayer = function (name, x) {
-                    $('#player' + name).css('left', x);
+			        $('#player' + name).css('left', x);
                 };
 
                 /*
@@ -116,20 +116,33 @@
                         lastX = x;
                     }
 
+                    var playerScoreBar = $('<div />', {
+                        id: 'ScoreBar' + newPlayerName,
+                        "class": 'progressbar-outer'
+                    });
+
+                    var score = $('<div />', {
+                        id: 'Score' + newPlayerName,
+                        "class": 'progressbar-inner'
+                    }).text(newPlayerName);
+
+                    playerScoreBar.append(score);
+
                     var playerDiv = $('<div />', {
                         id: 'player' + newPlayerName,
                         "class": 'player'
-                    });
+                    }).css('background-color', '#' + parseInt(x) + parseInt(canvasHeight));
 
                     var name = $('<span />', {
                         "class": 'playerName'
                     }).text(newPlayerName);
 
                     playerDiv.append(name);
-                    playerDiv.css('top', (canvasHeight - playerHeight) + 'px');
+                    playerDiv.css('top', canvasHeight + 'px');
                     playerDiv.css('left', x + 'px');
 
                     $("body").append(playerDiv);
+                    $(".dark").append(playerScoreBar);
                 };
 
 
