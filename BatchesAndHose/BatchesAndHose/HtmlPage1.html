@@ -17,7 +17,7 @@
 
         .canvas {
             width: 800px;
-            height: 800px;
+            height: 600px;
             padding: 20px;
             border: 5px solid #000;
             display: inline-block;
@@ -53,6 +53,162 @@
         ul {
             list-style: none;
         }
+
+        li {
+            list-style: none;
+        }
+
+        * {
+	        margin: 0;
+        }
+
+        #bottom {
+	        background-color: black;
+	        position: absolute;
+	        bottom: 0;
+	        height: 15em;
+	        width: 100%;
+        }
+
+        #content {
+	        margin-bottom: 5em;
+        }
+
+        #theme.dark{
+            font-family:Verdana, sans-serif;
+	        color:#fff;
+            background:#000;
+        }
+
+        #theme.dark .room{
+          position:relative;
+          padding: 0em 1em 1em 1em;
+          max-width: 650px;
+          border: 3px solid #222;
+          height: 217px;
+        }
+
+        #theme.dark .msg{
+          position:relative;
+          background:#333;
+          min-height:28px;
+          padding: .4em;
+          margin: 1em 0;
+        }
+
+        #theme.dark .msg.playerOne{
+          background:#333;
+          border: 1px solid #33d;
+        }
+
+        #theme.dark .msg.playerTwo{
+          background:#333;
+          border: 1px solid #d33;
+        }
+
+        #theme.dark .msg.playerOne img{
+          position: absolute;
+          background:#000;
+          border: 1px solid #33d;
+          width: 42px;
+          height: 42px;
+          float: left;
+          margin: .5em;
+        }
+
+        #theme.dark .msg.playerTwo img{
+          position: absolute;
+          background:#000;
+          border: 1px solid #d33;
+          width: 42px;
+          height: 42px;
+          float: right;
+          margin: .5em;
+            left: 578px;
+        }
+
+        #theme.dark .msg.playerTwo time{
+          position: absolute;
+          top: -8px;
+          right:22px;
+          padding:.1em .2em;
+          background: #333;
+          float: right;
+          color:#d33;
+          border: 1px solid #d33;
+          font-size:10px;
+          font-style: italic;
+        }
+
+        #theme.dark .msg.playerOne time{
+          position: absolute;
+          top: -8px;
+          left:19px;
+          padding:.1em .2em;
+          background: #333;
+          float: left;
+          color:#33d;
+          border: 1px solid #33d;
+          font-size:10px;
+          font-style: italic;
+        }
+
+        #theme.dark .msg.playerOne strong{
+          position: absolute;
+          left: 70px;
+            margin-right: 20px;
+          color:#33d;
+          font-size:18px;
+          font-style: italic;
+        }
+
+        #theme.dark .msg.playerTwo strong{
+          position: absolute;
+          left: 70px;
+          color:#d33;
+          font-size:18px;
+          font-style: italic;
+        }
+
+        #theme.dark #message-box{
+          position:absolute;
+          z-index:999999;
+          background:#555;
+          color:#eee;
+          display: block;
+          left:0px;
+          bottom:0px;
+          border: 3px solid #333;
+          width:70%;
+	        height:24px;
+	        padding: .2em .7em;
+	        font-size: 16px;
+        }
+
+        #theme.dark #message-send{
+          position:absolute;
+          z-index:999999;
+          background:#333;
+          display: block;
+          right:0px;
+          bottom:0px;
+          border: 3px solid #333;
+          width:24%;
+	        height:36px;
+	        font-size: 18px;
+          color:#eee;
+          text-transform:uppercase;
+        }
+
+        #theme.dark #message-send:hover,#message-send:active,#message-send:focus{
+          background:#222;
+        }
+
+        .msgText {
+            position: relative;
+            left: 130px;
+            top: 2px;
+        }
     </style>
 </head>
     <body>
@@ -69,6 +225,45 @@
             <ul id="discussion">
             </ul>
         </div>
+        
+        <div id="bottom">
+			<div id="theme" class="dark">
+				<ul class="room">
+				    
+                <!--<li class="msg playerOne">
+  					<img alt="">
+  					<p>
+    					<strong>Jim sauce: </strong>
+						<span class="msg">hello world</span>
+   				 		<time>20:23</time>
+   				 	</p>
+  				</li>-->
+  
+  				<!--<li class="msg playerTwo">
+  					<img alt="">
+  					<p>
+    					<strong>Jimbob: </strong>
+						<span class="msg">blah blah blah blah blah blah blah</span>
+    					<time>20:25</time>
+    				</p>
+  				</li>-->
+  
+  				<!--<li class="msg playerOne">
+  					<img alt="">
+  					<p>
+    					<strong>Jim sauce: </strong>
+						<span class="msg">hello world you are stupid</span>
+    					<time>20:23</time>
+    				</p>
+  				</li>-->
+    
+  				<form>
+   	 				<input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
+    				<input id="message-send" name="message-send" type="button" value="Send"/>
+ 				</form>
+  				</ul>
+  			</div>				
+		</div>
 
 
         <!--Script references. -->
@@ -89,11 +284,55 @@
                  */
                 chat.client.broadcastMessage = function (name, message) {
                     // Html encode display name and message. 
-                    var encodedName = $('<div />').text(name).html();
-                    var encodedMsg = $('<div />').text(message).html();
-                    // Add the message to the page. 
-                    $('#discussion').append('<li><strong>' + encodedName
-                        + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+                    var encodedName = $('<strong />').text(name + ":").html();
+                    var encodedMsg = $('<span />').text(message).html();
+                    var count = $('.room li').size();
+                    var yourName = $('#displayname').val();
+                    // Add the message to the page.
+                    
+                    if (count < 3) {
+                        if (name === yourName) {
+                            $('.room').append('<li class="msg playerOne">' +
+                                '<img alt="">' +
+                                '<p>' +
+                                '<strong>' + name + ': </strong>' +
+                                '<span class="msgText">' + message + count + '</span>' +
+                                '<time>20:23</time>' +
+                                '</p>' +
+                                '</li>');
+                        } else {
+                            $('.room').append('<li class="msg playerTwo">' +
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name + ': </strong>' +
+                               '<span class="msgText">' + message + count + '</span>' +
+                               '<time>20:23</time>' +
+                               '</p>' +
+                               '</li>');
+                        }
+                        
+                    } else {
+                        $('.room li:first').remove();
+                        if (name === yourName) {
+                            $('.room').append('<li class="msg playerOne">' +
+                                '<img alt="">' +
+                                '<p>' +
+                                '<strong>' + name + ': </strong>' +
+                                '<span class="msgText">' + message + count + '</span>' +
+                                '<time>20:23</time>' +
+                                '</p>' +
+                                '</li>');
+                        } else {
+                            $('.room').append('<li class="msg playerTwo">' +
+                               '<img alt="">' +
+                               '<p>' +
+                               '<strong>' + name + ': </strong>' +
+                               '<span class="msgText">' + message + count + '</span>' +
+                               '<time>20:23</time>' +
+                               '</p>' +
+                               '</li>');
+                        }
+                    }
                 };
 
                 /*
@@ -136,17 +375,17 @@
                 var playerName = prompt('Enter your name:', '');
                 $('#displayname').val(playerName);
                 // Set initial focus to message input box.  
-                $('#message').focus();
+                $('#message-box').focus();
                 // Start the connection.
                 $.connection.hub.start().done(function () {
                     chat.server.addNewPlayer($('#displayname').val());
-                    $('#sendmessage').click(function () {
+                    $('#message-send').click(function () {
                         // Call the Send method on the hub. 
-                        chat.server.send($('#displayname').val(), $('#message').val());
+                        chat.server.send($('#displayname').val(), $('#message-box').val());
 
 
                         // Clear text box and reset focus for next comment. 
-                        $('#message').val('').focus();
+                        $('#message-box').val('').focus();
                     });
                 });
             });
