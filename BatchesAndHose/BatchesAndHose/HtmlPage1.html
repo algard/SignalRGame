@@ -22,34 +22,6 @@
         <div id="bottom">
 			<div id="theme" class="dark">
 				<ul class="room">
-				    
-                <!--<li class="msg playerOne">
-  					<img alt="">
-  					<p>
-    					<strong>Jim sauce: </strong>
-						<span class="msg">hello world</span>
-   				 		<time>20:23</time>
-   				 	</p>
-  				</li>-->
-  
-  				<!--<li class="msg playerTwo">
-  					<img alt="">
-  					<p>
-    					<strong>Jimbob: </strong>
-						<span class="msg">blah blah blah blah blah blah blah</span>
-    					<time>20:25</time>
-    				</p>
-  				</li>-->
-  
-  				<!--<li class="msg playerOne">
-  					<img alt="">
-  					<p>
-    					<strong>Jim sauce: </strong>
-						<span class="msg">hello world you are stupid</span>
-    					<time>20:23</time>
-    				</p>
-  				</li>-->
-    
   				<form>
    	 				<input id="message-box" name="message-box" type="text"  placeholder="Enter message..." title="Enter message..."/>
     				<input id="message-send" name="message-send" type="button" value="Send"/>
@@ -81,6 +53,7 @@
                     var encodedMsg = $('<span />').text(message).html();
                     var count = $('.room li').size();
                     var yourName = $('#displayname').val();
+                    var time = new Date();
                     // Add the message to the page.
                     
                     if (count < 3) {
@@ -89,8 +62,8 @@
                                 '<img alt="">' +
                                 '<p>' +
                                 '<strong>' + name + ': </strong>' +
-                                '<span class="msgText">' + message + count + '</span>' +
-                                '<time>20:23</time>' +
+                                '<span class="msgText">' + message + '</span>' +
+                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
@@ -98,8 +71,8 @@
                                '<img alt="">' +
                                '<p>' +
                                '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + count + '</span>' +
-                               '<time>20:23</time>' +
+                               '<span class="msgText">' + message + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
                         }
@@ -111,8 +84,8 @@
                                 '<img alt="">' +
                                 '<p>' +
                                 '<strong>' + name + ': </strong>' +
-                                '<span class="msgText">' + message + count + '</span>' +
-                                '<time>20:23</time>' +
+                                '<span class="msgText">' + message + '</span>' +
+                                '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                 '</p>' +
                                 '</li>');
                         } else {
@@ -120,8 +93,8 @@
                                '<img alt="">' +
                                '<p>' +
                                '<strong>' + name + ': </strong>' +
-                               '<span class="msgText">' + message + count + '</span>' +
-                               '<time>20:23</time>' +
+                               '<span class="msgText">' + message + '</span>' +
+                               '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
                                '</p>' +
                                '</li>');
                         }
