@@ -87,6 +87,7 @@
 
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
+        $("#theme").append("<span class='scoreValue' id='rawScore"+index+"'>0</span>");
 
         createPlayer(newPlayerName, x, index, avatar, urls);
     };
@@ -94,8 +95,9 @@
     /*
      *   changePlayerScore - just update the displayed score for a player
      */
-    chat.client.changePlayerScore = function (index, newScore) {
+    chat.client.changePlayerScore = function (index, newScore, debugScore) {
         $("#Score" + index).css("width", newScore);
+        $("#rawScore" + index).html(debugScore);
     };
 
     /*

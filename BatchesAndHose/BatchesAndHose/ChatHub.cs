@@ -85,7 +85,7 @@ public class ChatHub : Hub
 
         var percentScore = GetPercentScore(_players[index].Score);
 
-        Clients.All.changePlayerScore(index, percentScore);
+        Clients.All.changePlayerScore(index, percentScore, _players[index].Score);
     }
 
     public void RenamePlayer(string oldName, string newName)

@@ -243,3 +243,12 @@ li {
 .metroButton:hover{
 	-webkit-transform: scale(1.03);
 }
+
+.scoreValue {
+    float: right;
+    position: relative;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 2px;
+    color: #000;
+}
