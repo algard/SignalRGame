@@ -133,13 +133,10 @@
         $('#message-send').click(function () {
             // Call the Send method on the hub. 
             chat.server.send($('#displayname').val(), $('#message-box').val());
-
-
             // Clear text box and reset focus for next comment. 
             $('#message-box').val('').focus();
         });
-
-
+        
         /*
          * stop moving
          */

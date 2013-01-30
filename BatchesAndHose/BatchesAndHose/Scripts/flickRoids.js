@@ -1,6 +1,19 @@
 ﻿jQuery(document).ready(function () {
     setUp();
     setInterval(animationLoop, 1000 / FPS);
+
+
+    
+    $("#message-box").keyup(function (e) {
+        if (e.which == 13) {
+            // Call the Send method on the hub. 
+            chat.server.send($('#displayname').val(), $('#message-box').val());
+            // Clear text box and reset focus for next comment. 
+            $('#message-box').val('').focus();
+            return true;
+        }
+        return false;
+    });
 });
 
 
@@ -194,7 +207,7 @@ function createAsteroid(player, x) {
   //  img.onload = function () {
    //     g.drawImage(img, 400, 300);
    // };
-    img.src = player.asteroidURLs[player.asteroidIndex++];
+    img.src = player.asteroidURLs[player.asteroidIndex++ % 100];
     ast.image = img;
 
 
