@@ -67,7 +67,7 @@
     /*
      * addPlayer - notify the client that a player has been added to the game
      */
-    chat.client.addPlayer = function (newPlayerName, x) {
+    chat.client.addPlayer = function (newPlayerName, image, urls, x) {
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
@@ -111,12 +111,16 @@
      */
     // Get the user name and store it to prepend to messages.
     var playerName = prompt('Enter your name:', '');
+    var image = prompt('Enter the images you want to represent your team (i.e. "kittens"):', '');
+    var avatar = prompt('What do you want your chat avatar to be a picture of?', '');
     $('#displayname').val(playerName);
     // Set initial focus to message input box.  
     $('#message-box').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        n =  chat.server.addNewPlayer($('#displayname').val());
+        chat.server.addNewPlayer($('#displayname').val(), image);
+
+        $('#testurls').append(chat.server.testUrls(image) + "test");
 
         $('#message-send').click(function () {
             // Call the Send method on the hub. 

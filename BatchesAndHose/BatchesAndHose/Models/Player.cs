@@ -9,13 +9,19 @@ namespace BatchesAndHose.Models
     {
         public string Name;
 
+		public string Image;
+
+		public List<string> ImageURLs;
+
         public int LocationX;
 
         public int CanvasWidth;
 
-        public Player(string name, int x, int canvasWidth)
+		public Player(string name, string image, List<string> urls, int x, int canvasWidth)
         {
             this.Name = name;
+			this.Image = image;
+			this.ImageURLs = urls;
             this.LocationX = x;
             this.CanvasWidth = canvasWidth;
         }
