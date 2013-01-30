@@ -90,12 +90,24 @@
 
 
     /*
-     *   
+     *   updatePlayerIndex - a hack to let this client know which index in the player array they are
      */
     chat.client.updatePlayerIndex = function(index) {
         n = index;
     };
 
+    /*
+     *  addEnemyProjectile - notify this player that another player has fired
+     */
+    chat.client.addEnemyProjectile = function (index, theta) {
+        // don't do anything with the projectile if we shot it
+        if (index == n) {
+            return;
+        }
+        players[index].theta = theta;
+        createProjectile(players[index]);
+    };
+    
     /*
      * init code
      */

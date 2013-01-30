@@ -24,6 +24,7 @@ function setUp() {
     });
 
     canvas.addEventListener('mousedown', function (evt) {
+        chat.server.shotsFired(n, players[n].theta);
         createProjectile(players[n]);
     });
 }
@@ -141,7 +142,7 @@ function createProjectile(player) {
     proj.inBounds = true;
     proj.owner = player;
     projectiles.push(proj);
-
+    
     return proj;
 }
 

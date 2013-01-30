@@ -81,5 +81,10 @@ public class ChatHub : Hub
     {
 
     }
+
+    public void ShotsFired(int playerIndex, float theta)
+    {
+        Clients.All.addEnemyProjectile(playerIndex, theta);
+    }
 }
 
