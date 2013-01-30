@@ -223,9 +223,9 @@ li {
         text-transform: uppercase;
     }
 
-        #theme.dark #message-send:hover, #message-send:active, #message-send:focus {
-            background: #222;
-        }
+#theme.dark #message-send:hover, #message-send:active, #message-send:focus {
+    background: #222;
+}
 
 .msgText {
     position: relative;
