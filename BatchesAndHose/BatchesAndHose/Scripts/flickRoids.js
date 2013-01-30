@@ -176,7 +176,7 @@ function drawProjectile(proj) {
 }
 
 function createAsteroid(player, x) {
-    ast = {};
+    ast = {a};
     ast.width = 64;
     ast.height = 64;
     ast.x = x;
