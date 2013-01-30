@@ -9,6 +9,8 @@ namespace BatchesAndHose.Models
     {
         public string Name;
 
+	    public string Avatar;
+
 		public string Image;
 
 		public List<string> ImageURLs;
@@ -18,9 +20,10 @@ namespace BatchesAndHose.Models
         public int CanvasWidth;
 
 
-		public Player(string name, string image, List<string> urls, int x, int canvasWidth)
+		public Player(string name, string avatar, string image, List<string> urls, int x, int canvasWidth)
         {
             this.Name = name;
+			this.Avatar = avatar;
 			this.Image = image;
 			this.ImageURLs = urls;
             this.LocationX = x;
