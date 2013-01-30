@@ -3,21 +3,6 @@
     setInterval(animationLoop, 1000 / FPS);
 });
 
-var WIDTH = 1024;		// Canvas width
-var HEIGHT = 600;		// Canvas height
-var FPS = 24;			// Framerate
-
-
-var canvas;				// Canvas element
-var g; 					// Graphics context
-var players = [];		// Contains all the active player objects
-var n = 0;				// Index of the player being controlled by this client
-
-var projectiles = [];
-var asteroids = [];
-
-var mouseX;
-var mouseY;
 
 function setUp() {
     canvas = document.getElementById("canvas");
@@ -38,6 +23,8 @@ function setUp() {
         var rect = canvas.getBoundingClientRect();
         mouseX = evt.pageX - rect.left;
         mouseY = evt.pageY - rect.top;
+
+        chat.server.move(n, x);
     });
 
     canvas.addEventListener('mousedown', function (evt) {
@@ -46,10 +33,12 @@ function setUp() {
 }
 
 function animationLoop() {
+    currentWait++;
+    
     drawBackground();
 
     for (var i = 0; i < players.length; i++) {
-        updatePlayer(players[i])
+        updatePlayer(players[i]);
         drawPlayer(players[i]);
     }
 
@@ -125,6 +114,7 @@ function drawPlayer(player) {
 }
 
 function updatePlayer(player) {
+
     player.x += player.vx;
 
     var dx = mouseX - players[n].x;
@@ -206,7 +196,7 @@ function updateAsteroid(ast) {
                 }
                 splitAsteroid(ast);
             }
-            projectiles.splice(i, 1); ad
+            projectiles.splice(i, 1);
         }
     }
 

@@ -44,7 +44,7 @@ public class ChatHub : Hub
     /*
      *  Add a new player to the game
      */
-    public void AddNewPlayer(string name)
+    public int AddNewPlayer(string name)
     {
         var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
         var y = CanvasHeight;
@@ -60,6 +60,8 @@ public class ChatHub : Hub
 
         //notify other players that a new player has been added
         Clients.All.addPlayer(name, x, y);
+
+        return _players.Count - 1;
     }
 
     private static int RandomLocation(int startX, int endX)
