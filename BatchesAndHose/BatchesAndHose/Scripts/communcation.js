@@ -61,13 +61,13 @@
      * movePlayer - notify the client that a player has moved
      */
     chat.client.movePlayer = function (index, x) {
-        players[n].x = x;
+        players[index].x = x;
     };
 
     /*
      * addPlayer - notify the client that a player has been added to the game
      */
-    chat.client.addPlayer = function (newPlayerName, image, urls, x) {
+    chat.client.addPlayer = function (newPlayerName, image, urls, x, index) {
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
@@ -85,7 +85,7 @@
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
 
-        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x);
+        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x, index);
     };
 
 
