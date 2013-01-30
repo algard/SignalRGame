@@ -67,7 +67,7 @@
     /*
      * addPlayer - notify the client that a player has been added to the game
      */
-    chat.client.addPlayer = function (newPlayerName, image, urls, x, index) {
+    chat.client.addPlayer = function (newPlayerName, avatar, image, urls, x, index) {
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
@@ -120,7 +120,7 @@
     $('#message-box').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        chat.server.addNewPlayer($('#displayname').val(), image);
+        chat.server.addNewPlayer($('#displayname').val(), avatar, image);
         $('#testurls').append(chat.server.testUrls(image) + "test");
 
         $('#message-send').click(function () {
