@@ -45,7 +45,7 @@ public class ChatHub : Hub
     /*
      *  Add a new player to the game
      */
-    public int AddNewPlayer(string name)
+    public int AddNewPlayer(string name, string image)
     {
         var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
         var y = CanvasHeight;
