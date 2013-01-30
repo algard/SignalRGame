@@ -30,7 +30,7 @@ namespace BatchesAndHose.Models
         {
             if (LocationX + deltax < 0 || LocationX + deltax > CanvasWidth)
             {
-                return false;
+                return true;
             }
 
             return true;

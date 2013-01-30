@@ -60,8 +60,8 @@
     /*
      * movePlayer - notify the client that a player has moved
      */
-    chat.client.movePlayer = function (name, x) {
-        $('#player' + name).css('left', x);
+    chat.client.movePlayer = function (index, x) {
+        players[n].x = x;
     };
 
     /*
@@ -83,28 +83,18 @@
         }).text(newPlayerName);
 
         playerScoreBar.append(score);
-
-        var playerDiv = $('<div />', {
-            id: 'player' + newPlayerName,
-            "class": 'player'
-        }).css('background-color', '#' + parseInt(x) + parseInt(canvasHeight));
-
-        var name = $('<span />', {
-            "class": 'playerName'
-        }).text(newPlayerName);
-
-        playerDiv.append(name);
-        playerDiv.css('top', canvasHeight + 'px');
-        playerDiv.css('left', x + 'px');
-
-        $("body").append(playerDiv);
         $(".dark").append(playerScoreBar);
+
+        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x);
     };
 
 
     /*
      *   
      */
+    chat.client.updatePlayerIndex = function(index) {
+        n = index;
+    };
 
     /*
      * init code
@@ -119,7 +109,6 @@
     // Start the connection.
     $.connection.hub.start().done(function () {
         chat.server.addNewPlayer($('#displayname').val(), image);
-
         $('#testurls').append(chat.server.testUrls(image) + "test");
 
         $('#message-send').click(function () {

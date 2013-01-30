@@ -13,8 +13,6 @@ function setUp() {
     gradient.addColorStop(0, "#36A7C7");
     gradient.addColorStop(1, "#0B3158");
 
-    createPlayer("Patrick", "#FFE9B0");
-    createPlayer("Chris", "#005500");
     var ast = createAsteroid(players[1]);
     ast.y = HEIGHT;
     ast.x = WIDTH / 2;
@@ -23,8 +21,6 @@ function setUp() {
         var rect = canvas.getBoundingClientRect();
         mouseX = evt.pageX - rect.left;
         mouseY = evt.pageY - rect.top;
-
-        chat.server.move(n, x);
     });
 
     canvas.addEventListener('mousedown', function (evt) {
@@ -34,7 +30,6 @@ function setUp() {
 
 function animationLoop() {
     currentWait++;
-    
     drawBackground();
 
     for (var i = 0; i < players.length; i++) {
@@ -61,7 +56,7 @@ function animationLoop() {
         }
     }
 
-    $("#debugText").text(players[0].stigma + " " + players[1].stigma);
+    //$("#debugText").text(players[0].stigma + " " + players[1].stigma);
 }
 
 var bgGradient;			// Background gradient
@@ -71,11 +66,11 @@ function drawBackground() {
     g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-function createPlayer(name, color) {
+function createPlayer(name, color, x) {
     var player = {};
     player.name = name;
     player.color = color;
-    player.x = WIDTH / 2;
+    player.x = x;
     player.y = 0;
     player.r = 14;
     player.vx = 0;
@@ -111,6 +106,8 @@ function drawPlayer(player) {
     g.arc(player.x, HEIGHT - player.y, 6, 0, Math.PI, true);
     g.closePath();
     g.fill();
+    
+
 }
 
 function updatePlayer(player) {
@@ -124,6 +121,12 @@ function updatePlayer(player) {
 
     if (player.x < 0) player.x = 0;
     if (player.x > WIDTH - player.width) player.x = WIDTH - player.width;
+    
+    if (player.vx != 0) {
+        if (currentWait >= rateLimit) {
+            chat.server.move(n, player.vx);
+        }
+    }
 }
 
 function createProjectile(player) {

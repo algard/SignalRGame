@@ -10,7 +10,7 @@ using System.Xml;
 public class ChatHub : Hub
 {
     private const int CanvasHeight = 600;
-    private const int CanvasWidth = 800;
+    private const int CanvasWidth = 1024;
     private const int PlayerHeight = 50;
     private const int PlayerWidth = 50;
 
@@ -27,25 +27,20 @@ public class ChatHub : Hub
     /*
      * Move a player 
      */
-    public void Move(string name, int deltax)
+    public void Move(int index, int deltax)
     {
-        var player = GetPlayerByName(name);
+        var player = _players[index];
         if (player.CanMove(deltax))
         {
             player.LocationX += deltax;
-            Clients.All.movePlayer(name, player.LocationX);
+            Clients.All.movePlayer(index, player.LocationX);
         }
-    }
-
-    private Player GetPlayerByName(string name)
-    {
-        return _players.FirstOrDefault(player => player.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     }
 
     /*
      *  Add a new player to the game
      */
-    public int AddNewPlayer(string name)
+    public void AddNewPlayer(string name, string image)
     {
         var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
         var y = CanvasHeight;
@@ -73,7 +68,7 @@ public class ChatHub : Hub
         //notify other players that a new player has been added
         Clients.All.addPlayer(name,  image, urlArray, x);
 
-        return _players.Count - 1;
+        Clients.Caller.updatePlayerIndex(_players.Count - 1);
     }
 
     private static int RandomLocation(int startX, int endX)
