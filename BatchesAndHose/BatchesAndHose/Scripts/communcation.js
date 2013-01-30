@@ -83,7 +83,7 @@
         var score = $('<div />', {
             id: 'Score' + newPlayerName,
             "class": 'progressbar-inner'
-        }).text(newPlayerName);
+        }).text(newPlayerName).css("color", PLAYER_COLORS[index]).css("width","100%");
 
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
