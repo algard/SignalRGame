@@ -1,7 +1,7 @@
 body {
     background-color: #fafafa;
     font-family: "Open Sans", arial;
-    color: white;
+    color: #000;
 }
 
 #header {
@@ -18,14 +18,8 @@ body {
     margin-right: auto;
 }
 
-.canvas {
-    width: 1024px;
-    height: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 5px solid #000;
-    display: inline-block;
-    background-color: #B0E0E6;
+#canvasContainer {
+    background-color: #fafafa;
 }
 
 #canvas {

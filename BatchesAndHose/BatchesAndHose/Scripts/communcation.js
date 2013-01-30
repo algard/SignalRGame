@@ -61,16 +61,20 @@
      * movePlayer - notify the client that a player has moved
      */
     chat.client.movePlayer = function (index, x) {
-        players[n].x = x;
+        players[index].x = x;
     };
 
     /*
      * addPlayer - notify the client that a player has been added to the game
      */
-    chat.client.addPlayer = function (newPlayerName, image, urls, x) {
+    chat.client.addPlayer = function (newPlayerName, avatar, image, urls, x, index) {
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
+
+        console.log("Here's your stuff: ");
+        console.log(avatar);
+        console.log(urls);
 
         var playerScoreBar = $('<div />', {
             id: 'ScoreBar' + newPlayerName,
@@ -85,17 +89,33 @@
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
 
-        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x);
+        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x, index);
     };
 
 
+    chat.client.addNewAsteroid = function(index, x) {
+        createAsteroid(players[index], x);
+    };
+
     /*
-     *   
+      *   updatePlayerIndex - a hack to let this client know which index in the player array they are   
      */
     chat.client.updatePlayerIndex = function(index) {
         n = index;
     };
 
+    /*
+     *  addEnemyProjectile - notify this player that another player has fired
+     */
+    chat.client.addEnemyProjectile = function (index, theta) {
+        // don't do anything with the projectile if we shot it
+        if (index == n) {
+            return;
+        }
+        players[index].theta = theta;
+        createProjectile(players[index]);
+    };
+    
     /*
      * init code
      */
@@ -108,8 +128,7 @@
     $('#message-box').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        chat.server.addNewPlayer($('#displayname').val(), image);
-        $('#testurls').append(chat.server.testUrls(image) + "test");
+        chat.server.addNewPlayer($('#displayname').val(), avatar, image);
 
         $('#message-send').click(function () {
             // Call the Send method on the hub. 
