@@ -1,8 +1,13 @@
-
 body {
     background-color: #fafafa;
     font-family: "Open Sans", arial;
     color: white;
+}
+
+#header {
+    font-family: 'Trade Winds', cursive;
+    text-align: center;
+    font-size: 3.5em;
 }
 
 .content {
@@ -14,13 +19,18 @@ body {
 }
 
 .canvas {
-    width: 800px;
+    width: 1024px;
     height: 600px;
     margin-left: auto;
     margin-right: auto;
     border: 5px solid #000;
     display: inline-block;
     background-color: #B0E0E6;
+}
+
+#canvas {
+	border: 1px solid #000;
+	cursor: crosshair;
 }
 
 .player {
@@ -136,14 +146,14 @@ li {
             height: 38px;
             float: right;
             margin: .5em;
-            left: 272px;
+            left: 585px;
             top: 3px;
         }
 
         #theme.dark .msg.playerTwo time {
             position: absolute;
             top: -8px;
-            right: 23px;
+            right: 10px;
             padding: .1em .2em;
             background: #333;
             float: right;
@@ -168,7 +178,7 @@ li {
 
         #theme.dark .msg.playerOne strong {
             position: absolute;
-            left: 70px;
+            left: 65px;
             margin-right: 20px;
             color: #33d;
             font-size: 18px;
@@ -177,7 +187,7 @@ li {
 
         #theme.dark .msg.playerTwo strong {
             position: absolute;
-            left: 13px;
+            left: 8px;
             color: #d33;
             font-size: 18px;
             font-style: italic;
@@ -219,9 +229,13 @@ li {
 
 .msgText {
     position: relative;
-    left: 120px;
+    left: 135px;
     top: 2px;
     font-size: 16px;
+}
+
+.p2 {
+    left: 75px;
 }
 
 
