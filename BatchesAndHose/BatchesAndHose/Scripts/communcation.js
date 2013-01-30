@@ -81,9 +81,9 @@
         });
 
         var score = $('<div />', {
-            id: 'Score' + newPlayerName,
+            id: 'Score' + index,
             "class": 'progressbar-inner'
-        }).text(newPlayerName);
+        }).text(newPlayerName).css("color", PLAYER_COLORS[index]).css("width","100%");
 
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
@@ -91,6 +91,12 @@
         createPlayer(newPlayerName, x, index, avatar, urls);
     };
 
+    /*
+     *   changePlayerScore - just update the displayed score for a player
+     */
+    chat.client.changePlayerScore = function (index, newScore) {
+        $("#Score" + index).css("width", newScore);
+    };
 
     chat.client.addNewAsteroid = function(index, x, vx, dtheta) {
         var ast = createAsteroid(players[index], x, vx, dtheta);
@@ -151,7 +157,5 @@
                     break;
             }
         });
-
-
     });
 });

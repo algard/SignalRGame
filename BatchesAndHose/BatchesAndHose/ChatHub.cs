@@ -55,9 +55,16 @@ public class ChatHub : Hub
 
         var urlArray = getPhotoThumbnails(image).ToArray();
 
-	    avatar = getSinglePhotoThumbnail(avatar);
+        // catch poor input
+        if (urlArray.Count() < 100)
+        {
+            urlArray = getPhotoThumbnails("Kittens").ToArray();
+        }
+
+        avatar = urlArray[0];
 
         var newPlayer = new Player(name, avatar, image, urlArray, x, CanvasWidth);
+        newPlayer.Score = 0;
 
         // send the list of players to this new player
         int i = 0;
@@ -71,6 +78,44 @@ public class ChatHub : Hub
         Clients.All.addPlayer(name, avatar, urlArray, x, _players.Count - 1);
 
         Clients.Caller.updatePlayerIndex(_players.Count - 1);
+    }
+
+    public void UpdateScore(int index, int deltaScore)
+    {
+        _players[index].Score += deltaScore;
+
+        var percentScore = GetPercentScore(_players[index].Score);
+
+        Clients.All.changePlayerScore(index, percentScore);
+    }
+
+    public void RenamePlayer(string oldName, string newName)
+    {
+
+    }
+
+    public void ShotsFired(int playerIndex, float theta)
+    {
+        Clients.All.addEnemyProjectile(playerIndex, theta);
+    }
+
+    private static int GetPercentScore(int score)
+    {
+        var max = -1000;
+        var min = 1000;
+        foreach (var player in _players)
+        {
+            max = Math.Max(max, player.Score);
+            min = Math.Min(min, player.Score);
+        }
+
+        var range = max - min;
+        if (range == 0)
+        {
+            return 0;
+        }
+
+        return ((score - min)/range) * 100;
     }
 
     private IEnumerable<string> getPhotoThumbnails(string searchTerm)
@@ -107,16 +152,6 @@ public class ChatHub : Hub
     private int RandomLocation(int startX, int endX)
     {
         return _rng.Next(startX, endX + 1);
-    }
-
-    public void RenamePlayer(string oldName, string newName)
-    {
-
-    }
-
-    public void ShotsFired(int playerIndex, float theta)
-    {
-        Clients.All.addEnemyProjectile(playerIndex, theta);
     }
 }
 
