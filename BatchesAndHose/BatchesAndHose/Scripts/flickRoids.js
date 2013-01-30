@@ -14,11 +14,8 @@
     });
 });
 
-
 function setUp() {
     canvas = document.getElementById("canvas");
-    canvas.setAttribute('tabindex', '0');
-    canvas.focus();
     g = canvas.getContext("2d");
 
     // Set up background
@@ -26,18 +23,27 @@ function setUp() {
     gradient.addColorStop(0, "#36A7C7");
     gradient.addColorStop(1, "#0B3158");
 
-    canvas.addEventListener('mousemove', function (evt) {
+    canvas.addEventListener('mousemove', function (e) {
         var rect = canvas.getBoundingClientRect();
-        mouseX = evt.pageX - rect.left;
-        mouseY = evt.pageY - rect.top;
+        mouseX = e.x - rect.left;
+        mouseY = e.y - rect.top;
     });
+
+    canvas.addEventListener('mouseover', function () {
+        canvas.setAttribute('tabindex', '0');
+        canvas.focus();
+    }, false);
+    
+    canvas.addEventListener('mouseout', function () {
+        canvas.blur();
+    }, false);
 
     canvas.addEventListener('mousedown', function (evt) {
         chat.server.shotsFired(n, players[n].theta);
         createProjectile(players[n]);
     });
 
-    $(document).keydown(function (evt) {
+    $(canvas).keydown(function (evt) {
         if (players[n].leftKeys.indexOf(evt.which) >= 0) {
             players[n].vx = -players[n].speed;
         }
@@ -46,7 +52,7 @@ function setUp() {
         }
     });
 
-    $(document).keyup(function (evt) {
+    $(canvas).keyup(function (evt) {
         if (players[n].leftKeys.indexOf(evt.which) >= 0) {
             players[n].vx = 0;
         }
