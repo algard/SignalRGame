@@ -19,6 +19,8 @@ namespace BatchesAndHose.Models
 
         public int CanvasWidth;
 
+        public int Score;
+
 		public Player(string name, string avatar, string image, string[] urls, int x, int canvasWidth)
         {
             this.Name = name;
@@ -28,6 +30,7 @@ namespace BatchesAndHose.Models
             this.LocationX = x;
             this.CanvasWidth = canvasWidth;
         }
+
 
         public bool CanMove(int deltax)
         {

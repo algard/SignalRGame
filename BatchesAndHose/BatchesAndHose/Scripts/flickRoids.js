@@ -90,6 +90,7 @@ function drawBackground() {
 
 function createPlayer(name, x, index, avatarURL, asteroidURLs) {
     var player = {};
+    player.index = index;
     player.name = name;
     player.color = PLAYER_COLORS[index];
     player.x = x;
@@ -231,8 +232,10 @@ function updateAsteroid(ast) {
             if (ast.health <= 0) {
                 if (ast.owner == proj.owner) {
                     proj.owner.stigma += 10;
+                    chat.server.updateScore(proj.owner.index, 10);
                 } else {
                     proj.owner.stigma -= 3;
+                    chat.server.updateScore(proj.owner.index, -3);
                 }
                 splitAsteroid(ast);
             }
@@ -245,6 +248,7 @@ function updateAsteroid(ast) {
 
         if (asteroidContains(ast, player)) {
             player.stigma += ast.width;
+            chat.server.updateScore(player.index, ast.width);
             ast.health = 0;
         }
     }
