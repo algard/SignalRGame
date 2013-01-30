@@ -14,7 +14,6 @@
     });
 });
 
-
 function setUp() {
     canvas = document.getElementById("canvas");
     g = canvas.getContext("2d");
@@ -24,25 +23,47 @@ function setUp() {
     gradient.addColorStop(0, "#36A7C7");
     gradient.addColorStop(1, "#0B3158");
 
-    canvas.addEventListener('mousemove', function (evt) {
+    canvas.addEventListener('mousemove', function (e) {
         var rect = canvas.getBoundingClientRect();
-        mouseX = evt.pageX - rect.left;
-        mouseY = evt.pageY - rect.top;
+        mouseX = e.x - rect.left;
+        mouseY = e.y - rect.top;
     });
+
+    canvas.addEventListener('mouseover', function () {
+        canvas.setAttribute('tabindex', '0');
+        canvas.focus();
+    }, false);
+    
+    canvas.addEventListener('mouseout', function () {
+        canvas.blur();
+    }, false);
 
     canvas.addEventListener('mousedown', function (evt) {
         chat.server.shotsFired(n, players[n].theta);
         createProjectile(players[n]);
     });
 
-    $("#canvas").dblclick(function (event) {
-        event.preventDefault();
+    $(canvas).keydown(function (evt) {
+        if (players[n].leftKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = -players[n].speed;
+        }
+        if (players[n].rightKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = players[n].speed;
+        }
+    });
+
+    $(canvas).keyup(function (evt) {
+        if (players[n].leftKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = 0;
+        }
+        if (players[n].rightKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = 0;
+        }
     });
 }
 
 function animationLoop() {
     currentWait++;
-    newAsteroid++;
 
     drawBackground();
 
@@ -52,11 +73,11 @@ function animationLoop() {
 
     }
     
-    if (newAsteroid == 100) {
+    if (newAsteroid++ == 100) {
         for (var i = 0; i < players.length; i++) {
             chat.server.addNewAsteroid(i);
         }
-        newAsteroid = 0;
+        newAsteroid = 1;
     }
 
     for (var i = projectiles.length - 1; i >= 0; i--) {
@@ -148,8 +169,8 @@ function updatePlayer(player) {
 
     players[n].theta = Math.atan2(dy, dx);
 
-    if (player.x < player.r) player.x = player.r;
-    if (player.x > WIDTH - player.r) player.x = WIDTH - player.r;
+    if (player.x < player.r) player.x = player.r + 1;
+    if (player.x > WIDTH - player.r) player.x = WIDTH - player.r - 1;
     
     if (player.vx != 0) {
         if (currentWait >= rateLimit) {
@@ -191,16 +212,16 @@ function drawProjectile(proj) {
     g.fill();
 }
 
-function createAsteroid(player, x) {
+function createAsteroid(player, x, vx, dtheta) {
     ast = {};
     ast.width = 64;
     ast.height = 64;
     ast.x = x;
     ast.y = 590;
-    ast.vx = 0;
+    ast.vx = vx;
     ast.vy = 0;
     ast.theta = 0;
-    ast.dtheta = 0.05;
+    ast.dtheta = dtheta;
     ast.maxHealth = 16;
     ast.health = ast.maxHealth;
     ast.owner = player;
@@ -289,23 +310,3 @@ function drawAsteroid(ast) {
     g.rotate(ast.theta);
     g.translate(-ast.x, ast.y - HEIGHT);
 }
-
-// Key bindings
-
-$(document).keydown(function (event) {
-    if (players[n].leftKeys.indexOf(event.which) >= 0) {
-        players[n].vx = -players[n].speed;
-    }
-    if (players[n].rightKeys.indexOf(event.which) >= 0) {
-        players[n].vx = players[n].speed;
-    }
-});
-
-$(document).keyup(function (event) {
-    if (players[n].leftKeys.indexOf(event.which) >= 0) {
-        players[n].vx = 0;
-    }
-    if (players[n].rightKeys.indexOf(event.which) >= 0) {
-        players[n].vx = 0;
-    }
-});

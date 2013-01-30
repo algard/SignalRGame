@@ -100,11 +100,9 @@
         $("#rawScore" + index).html(debugScore);
     };
 
-    /*
-      *   addNewAsteroid
-     */
-    chat.client.addNewAsteroid = function(index, x) {
-        createAsteroid(players[index], x);
+    chat.client.addNewAsteroid = function(index, x, vx, dtheta) {
+        var ast = createAsteroid(players[index], x, vx, dtheta);
+        ast.y = HEIGHT + 49;
     };
 
     /*
