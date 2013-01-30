@@ -13,13 +13,13 @@ namespace BatchesAndHose.Models
 
 		public string Image;
 
-		public List<string> ImageURLs;
+		public string[] ImageURLs;
 
         public int LocationX;
 
         public int CanvasWidth;
 
-		public Player(string name, string avatar, string image, List<string> urls, int x, int canvasWidth)
+		public Player(string name, string avatar, string image, string[] urls, int x, int canvasWidth)
         {
             this.Name = name;
 			this.Avatar = avatar;

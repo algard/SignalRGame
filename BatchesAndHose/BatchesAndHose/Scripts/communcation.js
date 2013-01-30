@@ -72,6 +72,10 @@
             lastX = x;
         }
 
+        console.log("Here's your stuff: ");
+        console.log(avatar);
+        console.log(urls);
+
         var playerScoreBar = $('<div />', {
             id: 'ScoreBar' + newPlayerName,
             "class": 'progressbar-outer'
@@ -121,7 +125,6 @@
     // Start the connection.
     $.connection.hub.start().done(function () {
         chat.server.addNewPlayer($('#displayname').val(), avatar, image);
-        $('#testurls').append(chat.server.testUrls(image) + "test");
 
         $('#message-send').click(function () {
             // Call the Send method on the hub. 
