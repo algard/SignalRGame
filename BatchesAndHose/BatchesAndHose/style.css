@@ -146,7 +146,7 @@ li {
             height: 38px;
             float: right;
             margin: .5em;
-            left: 285px;
+            left: 585px;
             top: 3px;
         }
 
@@ -232,6 +232,10 @@ li {
     left: 130px;
     top: 2px;
     font-size: 16px;
+}
+
+.p2 {
+    left: 70px;
 }
 
 
