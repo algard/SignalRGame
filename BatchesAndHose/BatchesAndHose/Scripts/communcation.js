@@ -113,7 +113,8 @@
        // $("#Score" + index).css("width", newScore);
         // $("#rawScore" + index).html(debugScore);
 
-        $("#score" + index + ".pointsDispay").html(debugScore);
+        $("#score" + index + " .pointsDispay").html(debugScore);
+        console.log("#score" + index + " .pointsDisplay");
     };
 
     chat.client.addNewAsteroid = function(index, x, vx, dtheta) {

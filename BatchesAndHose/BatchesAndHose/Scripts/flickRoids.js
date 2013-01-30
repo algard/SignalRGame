@@ -268,8 +268,8 @@ function updateAsteroid(ast) {
         var player = players[i];
 
         if (asteroidContains(ast, player)) {
-            player.stigma += ast.width;
-            chat.server.updateScore(player.index, ast.width);
+            player.stigma -= 10;
+            chat.server.updateScore(player.index, -10);
             ast.health = 0;
         }
     }
