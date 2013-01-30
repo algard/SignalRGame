@@ -194,7 +194,7 @@ function createAsteroid(player, x) {
   //  img.onload = function () {
    //     g.drawImage(img, 400, 300);
    // };
-    img.src = player.asteroidURLs[player.asteroidIndex++];
+    img.src = player.asteroidURLs[player.asteroidIndex++ % 100];
     ast.image = img;
 
 

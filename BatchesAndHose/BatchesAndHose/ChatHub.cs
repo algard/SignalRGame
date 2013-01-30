@@ -63,7 +63,7 @@ public class ChatHub : Hub
         int i = 0;
         foreach (var player in _players)
         {
-			Clients.Caller.addPlayer(player.Name, player.Avatar, player.Image, player.ImageURLs, player.LocationX, i++);
+			Clients.Caller.addPlayer(player.Name, player.Avatar, player.ImageURLs, player.LocationX, i++);
         }
         _players.Add(newPlayer);
 
