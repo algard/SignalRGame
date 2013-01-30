@@ -93,8 +93,12 @@
     };
 
 
+    chat.client.addNewAsteroid = function(index, x) {
+        createAsteroid(players[index], x);
+    };
+
     /*
-     *   updatePlayerIndex - a hack to let this client know which index in the player array they are
+      *   updatePlayerIndex - a hack to let this client know which index in the player array they are   
      */
     chat.client.updatePlayerIndex = function(index) {
         n = index;
