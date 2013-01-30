@@ -1,8 +1,6 @@
 ﻿jQuery(document).ready(function () {
     setUp();
     setInterval(animationLoop, 1000 / FPS);
-
-
     
     $("#message-box").keyup(function (e) {
         if (e.which == 13) {
@@ -19,6 +17,8 @@
 
 function setUp() {
     canvas = document.getElementById("canvas");
+    canvas.setAttribute('tabindex', '0');
+    canvas.focus();
     g = canvas.getContext("2d");
 
     // Set up background
@@ -36,11 +36,28 @@ function setUp() {
         chat.server.shotsFired(n, players[n].theta);
         createProjectile(players[n]);
     });
+
+    $(document).keydown(function (evt) {
+        if (players[n].leftKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = -players[n].speed;
+        }
+        if (players[n].rightKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = players[n].speed;
+        }
+    });
+
+    $(document).keyup(function (evt) {
+        if (players[n].leftKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = 0;
+        }
+        if (players[n].rightKeys.indexOf(evt.which) >= 0) {
+            players[n].vx = 0;
+        }
+    });
 }
 
 function animationLoop() {
     currentWait++;
-    newAsteroid++;
 
     drawBackground();
 
@@ -50,11 +67,11 @@ function animationLoop() {
 
     }
     
-    if (newAsteroid == 100) {
+    if (newAsteroid++ == 100) {
         for (var i = 0; i < players.length; i++) {
             chat.server.addNewAsteroid(i);
         }
-        newAsteroid = 0;
+        newAsteroid = 1;
     }
 
     for (var i = projectiles.length - 1; i >= 0; i--) {
@@ -189,7 +206,7 @@ function drawProjectile(proj) {
 }
 
 function createAsteroid(player, x) {
-    ast = {a};
+    ast = {};
     ast.width = 64;
     ast.height = 64;
     ast.x = x;
@@ -283,23 +300,3 @@ function drawAsteroid(ast) {
     g.rotate(ast.theta);
     g.translate(-ast.x, ast.y - HEIGHT);
 }
-
-// Key bindings
-
-$(document).keydown(function (event) {
-    if (players[n].leftKeys.indexOf(event.which) >= 0) {
-        players[n].vx = -players[n].speed;
-    }
-    if (players[n].rightKeys.indexOf(event.which) >= 0) {
-        players[n].vx = players[n].speed;
-    }
-});
-
-$(document).keyup(function (event) {
-    if (players[n].leftKeys.indexOf(event.which) >= 0) {
-        players[n].vx = 0;
-    }
-    if (players[n].rightKeys.indexOf(event.which) >= 0) {
-        players[n].vx = 0;
-    }
-});

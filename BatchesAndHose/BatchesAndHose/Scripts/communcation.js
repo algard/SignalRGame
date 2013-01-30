@@ -94,7 +94,8 @@
 
 
     chat.client.addNewAsteroid = function(index, x) {
-        createAsteroid(players[index], x);
+        var ast = createAsteroid(players[index], x);
+        ast.y = HEIGHT + 49;
     };
 
     /*
