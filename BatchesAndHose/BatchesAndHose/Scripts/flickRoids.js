@@ -5,7 +5,7 @@
     $("#message-box").keyup(function (e) {
         if (e.which == 13) {
             // Call the Send method on the hub. 
-            chat.server.send($('#displayname').val(), $('#message-box').val());
+            chat.server.send(n, $('#message-box').val());
             // Clear text box and reset focus for next comment. 
             $('#message-box').val('').focus();
             return true;

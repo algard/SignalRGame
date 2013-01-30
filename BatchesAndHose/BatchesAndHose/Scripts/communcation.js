@@ -3,7 +3,8 @@
     /*
      * broadcastMessage - recieve a message from another player
      */
-    chat.client.broadcastMessage = function (name, message) {
+    chat.client.broadcastMessage = function(playerIndex, message) {
+        var name = players[playerIndex].name;
         // Html encode display name and message. 
         var encodedName = $('<strong />').text(name + ":").html();
         var encodedMsg = $('<span />').text(message).html();
@@ -12,49 +13,47 @@
         var time = new Date();
         // Add the message to the page.
 
-        if (count < 3) {
-            if (name === yourName) {
-                $('.room').append('<li class="msg playerOne">' +
-                    '<img alt="">' +
-                    '<p>' +
-                    '<strong>' + name.substring(0, 5) + ': </strong>' +
-                    '<span class="msgText">' + message.substring(0, 50) + '</span>' +
-                    '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                    '</p>' +
-                    '</li>');
-            } else {
-                $('.room').append('<li class="msg playerTwo">' +
-                   '<img alt="">' +
-                   '<p>' +
-                   '<strong>' + name.substring(0, 5) + ': </strong>' +
-                   '<span class="msgText p2">' + message.substring(0, 50) + '</span>' +
-                   '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                   '</p>' +
-                   '</li>');
-            }
-
-        } else {
+        if (count >= 3) {
             $('.room li:first').remove();
-            if (name === yourName) {
-                $('.room').append('<li class="msg playerOne">' +
-                    '<img alt="">' +
-                    '<p>' +
-                    '<strong>' + name.substring(0, 5) + ': </strong>' +
-                    '<span class="msgText">' + message.substring(0, 50) + '</span>' +
-                    '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                    '</p>' +
-                    '</li>');
-            } else {
-                $('.room').append('<li class="msg playerTwo">' +
-                   '<img alt="">' +
-                   '<p>' +
-                   '<strong>' + name.substring(0, 5) + ': </strong>' +
-                   '<span class="msgText p2">' + message.substring(0, 50) + '</span>' +
-                   '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
-                   '</p>' +
-                   '</li>');
-            }
         }
+
+        var newMessage = $('<li />',
+            {
+                "class": "msg",
+                "style": "border-color: " + players[playerIndex].color + ";",
+            });
+
+        var avatarImage = $('<img />').attr('src', players[playerIndex].avatarURL).css("border-color", players[playerIndex].color);
+
+        var messageP = $('<p />');
+
+        var nameSpan = $('<strong />').text(name.substring(0, 5)).css("color", players[playerIndex].color);
+
+        var messageText = $('<span />',
+            {
+                "class": "msgText"
+            }).text(message.substring(0, 50));
+
+        var timeSpan = $('<time />').text(time.toTimeString().substring(0, 8)).css("border-color", players[playerIndex].color).css("color", players[playerIndex].color);
+
+
+        newMessage.append(avatarImage);
+        messageP.append(nameSpan);
+        messageP.append(messageText);
+        messageP.append(timeSpan);
+        newMessage.append(messageP);
+        
+        $('.room').append(newMessage);
+
+        /*
+        $('.room').append('<li class="msg" style="border-color: ' + players[playerIndex].color + ';">' +
+            '<img alt="'+name+'" src="' + players[playerIndex].avatarURL + '">' +
+            '<p>' +
+            '<strong>' + name.substring(0, 5) + ': </strong>' +
+            '<span class="msgText">' + message.substring(0, 50) + '</span>' +
+            '<time>' + time.toTimeString().substring(0, 8) + '</time>' +
+            '</p>' +
+            '</li>');*/
     };
 
     /*
@@ -78,7 +77,7 @@
 
         var playerScoreBar = $('<div />', {
             id: 'ScoreBar' + newPlayerName,
-            "class": 'progressbar-outer'
+            "class": 'progressbar-outer metroButton'
         });
 
         var score = $('<div />', {
@@ -123,7 +122,7 @@
     // Get the user name and store it to prepend to messages.
     var playerName = prompt('Enter your name:', '');
     var image = prompt('Enter the images you want to represent your team (i.e. "kittens"):', '');
-    var avatar = prompt('What do you want your chat avatar to be a picture of?', '');
+    var avatar = image;
     $('#displayname').val(playerName);
     // Set initial focus to message input box.  
     $('#message-box').focus();
@@ -133,7 +132,7 @@
 
         $('#message-send').click(function () {
             // Call the Send method on the hub. 
-            chat.server.send($('#displayname').val(), $('#message-box').val());
+            chat.server.send(n, $('#message-box').val());
             // Clear text box and reset focus for next comment. 
             $('#message-box').val('').focus();
         });

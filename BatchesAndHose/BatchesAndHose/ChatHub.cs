@@ -20,9 +20,9 @@ public class ChatHub : Hub
     /*
      * Send a chat message to all clients
      */
-    public void Send(string name, string message)
+    public void Send(int index, string message)
     {
-        Clients.All.broadcastMessage(name, message);
+        Clients.All.broadcastMessage(index, message);
     }
 
     /*
@@ -37,7 +37,6 @@ public class ChatHub : Hub
             Clients.All.movePlayer(index, player.LocationX);
         }
     }
-
 
     public void AddNewAsteroid(int index)
     {
@@ -77,7 +76,7 @@ public class ChatHub : Hub
     {
         XmlDocument urlDoc = new XmlDocument();
 
-        urlDoc.Load("http://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=8531f340cce6465f6570d9933698ec52&text=" + searchTerm);
+        urlDoc.Load("http://api.flickr.com/services/rest/?&method=flickr.photos.search&sort=relevance&api_key=8531f340cce6465f6570d9933698ec52&text=" + searchTerm);
 
         foreach (XmlElement photo in urlDoc.SelectNodes("/rsp/photos/photo"))
         {
@@ -88,7 +87,7 @@ public class ChatHub : Hub
     private string getSinglePhotoThumbnail(string searchTerm)
     {
         XmlDocument avatarDoc = new XmlDocument();
-        avatarDoc.Load("http://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=8531f340cce6465f6570d9933698ec52&text=" + searchTerm);
+        avatarDoc.Load("http://api.flickr.com/services/rest/?&method=flickr.photos.search&sort=relevance&api_key=8531f340cce6465f6570d9933698ec52&text=" + searchTerm);
 
         try
         {
