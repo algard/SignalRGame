@@ -37,6 +37,13 @@ public class ChatHub : Hub
         }
     }
 
+
+    public void AddNewAsteroid(int index)
+    {
+        var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
+        Clients.All.addNewAsteroid(index, x);
+    }
+
     /*
      *  Add a new player to the game
      */

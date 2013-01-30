@@ -17,6 +17,7 @@ namespace BatchesAndHose.Models
 
         public int CanvasWidth;
 
+
 		public Player(string name, string image, List<string> urls, int x, int canvasWidth)
         {
             this.Name = name;

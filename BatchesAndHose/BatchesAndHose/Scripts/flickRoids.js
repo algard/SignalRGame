@@ -13,10 +13,6 @@ function setUp() {
     gradient.addColorStop(0, "#36A7C7");
     gradient.addColorStop(1, "#0B3158");
 
-    var ast = createAsteroid(players[1]);
-    ast.y = HEIGHT;
-    ast.x = WIDTH / 2;
-
     canvas.addEventListener('mousemove', function (evt) {
         var rect = canvas.getBoundingClientRect();
         mouseX = evt.pageX - rect.left;
@@ -30,11 +26,21 @@ function setUp() {
 
 function animationLoop() {
     currentWait++;
+    newAsteroid++;
+
     drawBackground();
 
     for (var i = 0; i < players.length; i++) {
         updatePlayer(players[i]);
         drawPlayer(players[i]);
+
+    }
+    
+    if (newAsteroid == 100) {
+        for (var i = 0; i < players.length; i++) {
+            chat.server.addNewAsteroid(i);
+        }
+        newAsteroid = 0;
     }
 
     for (var i = projectiles.length - 1; i >= 0; i--) {
@@ -141,7 +147,6 @@ function createProjectile(player) {
     proj.inBounds = true;
     proj.owner = player;
     projectiles.push(proj);
-
     return proj;
 }
 
@@ -163,12 +168,12 @@ function drawProjectile(proj) {
     g.fill();
 }
 
-function createAsteroid(player) {
+function createAsteroid(player, x) {
     ast = {};
     ast.width = 64;
     ast.height = 64;
-    ast.x = 0;
-    ast.y = 0;
+    ast.x = x;
+    ast.y = 590;
     ast.vx = 0;
     ast.vy = 0;
     ast.theta = 0;
@@ -241,7 +246,7 @@ function drawAsteroid(ast) {
 
     g.translate(ast.x, HEIGHT - ast.y);
     g.rotate(-ast.theta);
-    g.fillStyle = "rgba(100, 0, 100, " + ast.health / ast.maxHealth + ")";
+    g.fillStyle = "rgba(100, 0," + (ast.owner.x)/5 + "," + ast.health / ast.maxHealth + ")";
     g.fillRect(-ast.width / 2, -ast.height / 2, ast.width, ast.height);
     g.rotate(ast.theta);
     g.translate(-ast.x, ast.y - HEIGHT);

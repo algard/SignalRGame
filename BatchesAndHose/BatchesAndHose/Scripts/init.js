@@ -10,7 +10,7 @@ var HEIGHT = 600;		// Canvas height
 var FPS = 24;			// Framerate
 var rateLimit = 1;
 var currentWait = 0;
-
+var newAsteroid = 0;
 
 var canvas;				// Canvas element
 var g; 					// Graphics context

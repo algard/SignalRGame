@@ -89,6 +89,10 @@
     };
 
 
+    chat.client.addNewAsteroid = function(index, x) {
+        createAsteroid(players[index], x);
+    };
+
     /*
      *   
      */
@@ -109,7 +113,7 @@
     // Start the connection.
     $.connection.hub.start().done(function () {
         chat.server.addNewPlayer($('#displayname').val(), image);
-        $('#testurls').append(chat.server.testUrls(image) + "test");
+        //$('#testurls').append(chat.server.testUrls(image) + "test");
 
         $('#message-send').click(function () {
             // Call the Send method on the hub. 
