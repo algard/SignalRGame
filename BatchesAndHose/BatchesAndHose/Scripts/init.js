@@ -5,6 +5,8 @@ var canvasWidth = WIDTH;
 var canvasHeight = HEIGHT;
 var playerHeight = 50;
 
+var PLAYER_COLORS = ["#00FFFF", "#FFFF00", "#FF00FF", "#006666", "#666600", "#660066"];
+
 var WIDTH = 1024;		// Canvas width
 var HEIGHT = 600;		// Canvas height
 var FPS = 24;			// Framerate

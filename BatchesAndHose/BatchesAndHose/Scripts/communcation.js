@@ -89,7 +89,7 @@
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
 
-        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x, index, avatar, urls);
+        createPlayer(newPlayerName, x, index, avatar, urls);
     };
 
 

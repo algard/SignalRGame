@@ -73,12 +73,12 @@ function drawBackground() {
     g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-function createPlayer(name, color, x, index, avatarURL, asteroidURLs) {
+function createPlayer(name, x, index, avatarURL, asteroidURLs) {
     var player = {};
     player.name = name;
-    player.color = color;
+    player.color = PLAYER_COLORS[index];
     player.x = x;
-    player.y = 0;
+    player.y = 10;
     player.r = 14;
     player.vx = 0;
     player.speed = 8;
@@ -98,11 +98,13 @@ function createPlayer(name, color, x, index, avatarURL, asteroidURLs) {
 function drawPlayer(player) {
     g.fillStyle = player.color;
 
+    // Draw player
     g.beginPath();
-    g.arc(player.x, HEIGHT - player.y, player.r, 0, Math.PI, true);
+    g.arc(player.x, HEIGHT - player.y, player.r, 0, Math.PI * 2, true);
     g.closePath();
     g.fill();
 
+    // Draw turret
     g.fillStyle = "black";
 
     g.translate(player.x, HEIGHT - player.y);
@@ -114,7 +116,7 @@ function drawPlayer(player) {
     g.translate(-player.x, player.y - HEIGHT);
 
     g.beginPath();
-    g.arc(player.x, HEIGHT - player.y, 6, 0, Math.PI, true);
+    g.arc(player.x, HEIGHT - player.y, 6, 0, Math.PI * 2, true);
     g.closePath();
     g.fill();
     
@@ -130,8 +132,8 @@ function updatePlayer(player) {
 
     players[n].theta = Math.atan2(dy, dx);
 
-    if (player.x < 0) player.x = 0;
-    if (player.x > WIDTH - player.width) player.x = WIDTH - player.width;
+    if (player.x < player.r) player.x = player.r;
+    if (player.x > WIDTH - player.r) player.x = WIDTH - player.r;
     
     if (player.vx != 0) {
         if (currentWait >= rateLimit) {
@@ -260,9 +262,11 @@ function splitAsteroid(ast) {
 function drawAsteroid(ast) {
     g.translate(ast.x, HEIGHT - ast.y);
     g.rotate(-ast.theta);
-    g.fillStyle = "rgba(100, 0," + (ast.owner.x)/5 + "," + ast.health / ast.maxHealth + ")";
+
+    g.fillStyle = ast.owner.color;
     g.fillRect(-ast.width / 2, -ast.height / 2, ast.width, ast.height);
     g.drawImage(ast.image, -ast.width / 2 + 3, -ast.height / 2 + 3, ast.width - 6, ast.height - 6);
+    
     g.rotate(ast.theta);
     g.translate(-ast.x, ast.y - HEIGHT);
 }
