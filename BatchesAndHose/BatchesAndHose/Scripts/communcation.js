@@ -70,11 +70,8 @@
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
-
-        console.log("Here's your stuff: ");
-        console.log(avatar);
-        console.log(urls);
-
+        
+        /*
         var playerScoreBar = $('<div />', {
             id: 'ScoreBar' + newPlayerName,
             "class": 'progressbar-outer metroButton'
@@ -88,6 +85,23 @@
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
         $("#theme").append("<span class='scoreValue' id='rawScore"+index+"'>0</span>");
+        */
+        
+        /** CREATE PLAYER SCOREBAR ***/
+
+        var newScoreBar = $('<li />', { id: "score" + index, "class": "playerScore" }).css("color", PLAYER_COLORS[index]);
+        
+        var nameSpan = $('<span />', {
+            "class" : "scoreName"
+        }).html(newPlayerName);
+        newScoreBar.append(nameSpan);
+        
+        var points = $("<span />", {
+            "class": "pointsDispay"
+        }).html(0);
+        newScoreBar.append(points);
+
+        $("#scores").append(newScoreBar);
 
         createPlayer(newPlayerName, x, index, avatar, urls);
     };
@@ -96,8 +110,10 @@
      *   changePlayerScore - just update the displayed score for a player
      */
     chat.client.changePlayerScore = function (index, newScore, debugScore) {
-        $("#Score" + index).css("width", newScore);
-        $("#rawScore" + index).html(debugScore);
+       // $("#Score" + index).css("width", newScore);
+        // $("#rawScore" + index).html(debugScore);
+
+        $("#score" + index + ".pointsDispay").html(debugScore);
     };
 
     chat.client.addNewAsteroid = function(index, x, vx, dtheta) {

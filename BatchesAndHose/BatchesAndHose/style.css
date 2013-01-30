@@ -237,7 +237,6 @@ li {
    width: 25%; 
    height: 20px;
    text-align: center;
-   font: bold;
 }
 
 .metroButton:hover{
@@ -252,3 +251,27 @@ li {
     padding: 2px;
     color: #000;
 }
+
+#scores {
+    background-color: #ccc;
+    float: right;
+    width: 25%;
+    list-style: none;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+
+.playerScore {
+    background-color: #ccc;
+}
+
+.scoreName {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.pointsDispay {
+    float: right;
+}
+
