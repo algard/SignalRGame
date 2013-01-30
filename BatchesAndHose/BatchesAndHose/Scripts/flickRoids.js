@@ -168,8 +168,8 @@ function updatePlayer(player) {
 
     players[n].theta = Math.atan2(dy, dx);
 
-    if (player.x < player.r) player.x = player.r;
-    if (player.x > WIDTH - player.r) player.x = WIDTH - player.r;
+    if (player.x < player.r) player.x = player.r + 1;
+    if (player.x > WIDTH - player.r) player.x = WIDTH - player.r - 1;
     
     if (player.vx != 0) {
         if (currentWait >= rateLimit) {
@@ -211,16 +211,16 @@ function drawProjectile(proj) {
     g.fill();
 }
 
-function createAsteroid(player, x) {
+function createAsteroid(player, x, vx, dtheta) {
     ast = {};
     ast.width = 64;
     ast.height = 64;
     ast.x = x;
     ast.y = 590;
-    ast.vx = 0;
+    ast.vx = vx;
     ast.vy = 0;
     ast.theta = 0;
-    ast.dtheta = 0.05;
+    ast.dtheta = dtheta;
     ast.maxHealth = 16;
     ast.health = ast.maxHealth;
     ast.owner = player;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Xml.XPath;
 using BatchesAndHose.Models;
 using Microsoft.AspNet.SignalR;
 using System.Xml;
@@ -14,6 +12,7 @@ public class ChatHub : Hub
     private const int CanvasWidth = 1024;
     private const int PlayerHeight = 50;
     private const int PlayerWidth = 50;
+    private readonly Random _rng = new Random();
 
     private static List<Player> _players = new List<Player>();
 
@@ -40,8 +39,10 @@ public class ChatHub : Hub
 
     public void AddNewAsteroid(int index)
     {
-        var x = RandomLocation(50, CanvasWidth) - PlayerWidth;
-        Clients.All.addNewAsteroid(index, x);
+        var x = _rng.Next(50, CanvasWidth - 49);
+        var vx = _rng.Next(-2, 3);
+        var dtheta = _rng.NextDouble() * 0.2 - 0.1;
+        Clients.All.addNewAsteroid(index, x, vx, dtheta);
     }
 
     /*
@@ -103,10 +104,9 @@ public class ChatHub : Hub
         return "";
     }
 
-    private static int RandomLocation(int startX, int endX)
+    private int RandomLocation(int startX, int endX)
     {
-        var rnd = new Random();
-        return rnd.Next(startX, endX + 1);
+        return _rng.Next(startX, endX + 1);
     }
 
     public void RenamePlayer(string oldName, string newName)
