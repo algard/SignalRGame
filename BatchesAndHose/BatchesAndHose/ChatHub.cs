@@ -68,7 +68,7 @@ public class ChatHub : Hub
         _players.Add(newPlayer);
 
         //notify other players that a new player has been added
-        Clients.All.addPlayer(name, avatar, image, urlArray, x, _players.Count - 1);
+        Clients.All.addPlayer(name, avatar, urlArray, x, _players.Count - 1);
 
         Clients.Caller.updatePlayerIndex(_players.Count - 1);
     }

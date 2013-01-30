@@ -73,7 +73,7 @@ function drawBackground() {
     g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-function createPlayer(name, color, x, index) {
+function createPlayer(name, color, x, index, avatarURL, asteroidURLs) {
     var player = {};
     player.name = name;
     player.color = color;
@@ -87,6 +87,10 @@ function createPlayer(name, color, x, index) {
     player.cannonLength = 20;
     player.theta = Math.PI / 4;
     player.stigma = 0;
+    player.avatarURL = avatarURL;
+    player.asteroidURLs = asteroidURLs;
+    player.asteroidIndex = 0;
+    
     players[index] = player;
     return player;
 }
@@ -182,6 +186,16 @@ function createAsteroid(player, x) {
     ast.maxHealth = 16;
     ast.health = ast.maxHealth;
     ast.owner = player;
+
+    var img = new Image();
+    
+  //  img.onload = function () {
+   //     g.drawImage(img, 400, 300);
+   // };
+    img.src = player.asteroidURLs[player.asteroidIndex++];
+    ast.image = img;
+
+
     asteroids.push(ast);
     return ast;
 }
@@ -244,11 +258,11 @@ function splitAsteroid(ast) {
 }
 
 function drawAsteroid(ast) {
-
     g.translate(ast.x, HEIGHT - ast.y);
     g.rotate(-ast.theta);
     g.fillStyle = "rgba(100, 0," + (ast.owner.x)/5 + "," + ast.health / ast.maxHealth + ")";
     g.fillRect(-ast.width / 2, -ast.height / 2, ast.width, ast.height);
+    g.drawImage(ast.image, -ast.width / 2 + 3, -ast.height / 2 + 3, ast.width - 6, ast.height - 6);
     g.rotate(ast.theta);
     g.translate(-ast.x, ast.y - HEIGHT);
 }

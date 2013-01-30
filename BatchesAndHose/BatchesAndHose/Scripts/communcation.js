@@ -67,7 +67,7 @@
     /*
      * addPlayer - notify the client that a player has been added to the game
      */
-    chat.client.addPlayer = function (newPlayerName, avatar, image, urls, x, index) {
+    chat.client.addPlayer = function (newPlayerName, avatar, urls, x, index) {
         if (newPlayerName == $('#displayname').val()) {
             lastX = x;
         }
@@ -89,7 +89,7 @@
         playerScoreBar.append(score);
         $(".dark").append(playerScoreBar);
 
-        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x, index);
+        createPlayer(newPlayerName, '#' + parseInt(x) + parseInt(canvasHeight), x, index, avatar, urls);
     };
 
 
