@@ -67,7 +67,7 @@ function drawBackground() {
     g.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-function createPlayer(name, color, x) {
+function createPlayer(name, color, x, index) {
     var player = {};
     player.name = name;
     player.color = color;
@@ -81,7 +81,7 @@ function createPlayer(name, color, x) {
     player.cannonLength = 20;
     player.theta = Math.PI / 4;
     player.stigma = 0;
-    players.push(player);
+    players[index] = player;
     return player;
 }
 

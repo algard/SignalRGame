@@ -59,14 +59,15 @@ public class ChatHub : Hub
         var newPlayer = new Player(name, image, urlArray, x, CanvasWidth);
 
         // send the list of players to this new player
+        int i = 0;
         foreach (var player in _players)
         {
-			Clients.Caller.addPlayer(player.Name, player.Image, player.ImageURLs, player.LocationX);
+			Clients.Caller.addPlayer(player.Name, player.Image, player.ImageURLs, player.LocationX, i++);
         }
         _players.Add(newPlayer);
 
         //notify other players that a new player has been added
-        Clients.All.addPlayer(name,  image, urlArray, x);
+        Clients.All.addPlayer(name, image, urlArray, x, _players.Count - 1);
 
         Clients.Caller.updatePlayerIndex(_players.Count - 1);
     }
